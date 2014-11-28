@@ -19,7 +19,7 @@
   <script>
 
     document.addEventListener('polymer-ready', function() {
-      // Test properties
+      // Test default properties
       var myEl = document.querySelector('re-captcha');
       assert.equal(myEl.sitekey, '6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
       assert.equal(myEl.theme, 'light');
@@ -29,12 +29,9 @@
       // Test events
       myEl.addEventListener('captcha-response', function(event) {
         assert.equal(event.detail.response, 'response');
-        // IMPORTANT:
-        // Make sure to call done() at the end of every test suite!
         done();
       });
       myEl.responseHandler('response');
-
     });
 
   </script>
