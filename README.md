@@ -22,5 +22,5 @@ use it:
 
 ## More information
 
-Make sure to see the official reCaptcha [documentation](https://developers.google.com/recaptcha/docs/start)
+Make sure you read the official reCaptcha [documentation](https://developers.google.com/recaptcha/docs/start)
 
