@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>re-captcha</title>
+
+  <script src="../../platform/platform.js"></script>
+  <link rel="import" href="../../polymer-test-tools/tools.html">
+  <script src="../../polymer-test-tools/htmltest.js"></script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../re-captcha.html">
+
+</head>
+<body>
+
+  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      // Test properties
+      var myEl = document.querySelector('re-captcha');
+      assert.equal(myEl.sitekey, '6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
+      assert.equal(myEl.theme, 'light');
+      assert.equal(myEl.type, 'image');
+      assert.equal(myEl.timeout, 3000);
+
+      // Test events
+      myEl.addEventListener('captcha-response', function(event) {
+        assert.equal(event.detail.response, 'response');
+        // IMPORTANT:
+        // Make sure to call done() at the end of every test suite!
+        done();
+      });
+      myEl.responseHandler('response');
+
+    });
+
+  </script>
+
+</body>
+</html>
