@@ -1,8 +1,26 @@
 re-captcha
 ================
 
-See the [component page](http://cbalit.github.io/re-captcha) for more information.
+## See the [component page](http://cbalit.github.io/re-captcha) for more information.
 
-## Getting Started
+## Installation
 
-We've put together a [guide for re-captcha](http://www.polymer-project.org/docs/start/reusableelements.html) to help get you rolling.
+````
+bower install re-captcha
+````
+## Usage
+
+Import the component:
+```html
+<link rel="import" href="re-captcha.html">
+```
+
+use it:
+```html
+ <re-captcha theme="dark" sitekey="yoursitekey"></re-captcha>
+```
+
+## More information
+
+Make sure to see the official reCaptcha [documentation](https://developers.google.com/recaptcha/docs/start)
+
