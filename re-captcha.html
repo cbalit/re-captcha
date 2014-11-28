@@ -4,6 +4,8 @@
 <!--
 Element providing solution to integrate reCaptcha in your page
 
+More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
+
 ##### Example
 
   <re-captcha sitekey="yoursitekey"></re-captcha>
@@ -33,20 +35,13 @@ Element providing solution to integrate reCaptcha in your page
         delay:0,
         containerId:'',
         /**
-         * The `timeout` attribute specify the total time to wait for API loading
+         * The `timeout` attribute specify the total time (in milliseconds) to wait for API loading
          *
-         * @attribute timeout number of milliseconds
+         * @attribute timeout
          * @type number
          * @default 3000
          */
         timeout:3000,
-        /**
-         * The `captchaId` represents the id of the captcha return by the API
-         *
-         * @attribute captchaId
-         * @type string
-         * @default ''
-         */
         captchaId:'',
         /**
          * The `sitekey` is the one provide on registration (https://developers.google.com/recaptcha/docs/start)
@@ -66,7 +61,7 @@ Element providing solution to integrate reCaptcha in your page
          */
         theme:'light',
         /**
-         * The `type` The type of CAPTCHA to serve. (image or audio)
+         * The `type` The type of reCaptcha to serve. (image or audio)
          *
          * @attribute type
          * @type string
@@ -74,7 +69,7 @@ Element providing solution to integrate reCaptcha in your page
          */
         type:'image',
         /**
-         * The `response` The response from the Captcha API
+         * The `response` The response from the reCaptcha API
          *
          * @attribute response
          * @type string
@@ -133,13 +128,12 @@ Element providing solution to integrate reCaptcha in your page
           }
         },
         /**
-         * The `captcha-rendered` event is fired whenever we
-         * the captcha widget is rendered.
+         * The `captcha-rendered` event is fired whenever the captcha widget is rendered.
          *
          * @event captcha-rendered
          */
         /**
-         * The `render` method renders the container as a CAPTCHA widget and store the ID of the newly created widget.
+         * The `render` method renders the container as a reCaptcha widget and store the ID of the newly created widget.
          *
          * @method render
          */
@@ -157,17 +151,17 @@ Element providing solution to integrate reCaptcha in your page
           this.fire('captcha-rendered',null);
         },
         /**
-         * The `reset` method resets the reCAPTCHA widget.
+         * The `reset` method resets the reCaptcha widget.
          *
-         * @method render
+         * @method reset
          */
         reset: function () {
           window.grecaptcha.reset(this.captchaId);
         },
         /**
-         * The `getResponse` method gets the response for the reCAPTCHA widget.
+         * The `getResponse` method gets the response for the reCaptcha widget.
          *
-         * @method render
+         * @method getResponse
          * @return {String} Returns the response.
          */
         getResponse:function(){
@@ -176,18 +170,19 @@ Element providing solution to integrate reCaptcha in your page
         },
         /**
          * The `captcha-response` event is fired whenever we
-         * get the response from the CAPTCHA API.
+         * get the response from the reCaptcha API.
          *
          * @event captcha-response
          * @param {Object} detail
-         *   @param {string} detail.response. The response
+         *   @param {string} detail.response The response
          */
+
         /**
          * The `responseHandler` method will store the response and fire the captcha-response. At least
          * it will dispatch a captcha-response event with the response
          *
-         *  @param {String} The response to store
          *  @method responseHandler
+         *  @param {String} response response to store
          */
         responseHandler: function (response) {
           this.response=response;

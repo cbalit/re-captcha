@@ -3,18 +3,26 @@
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>re-captcha Demo</title>
-
+  <style>
+    #eventMessage{
+      border-radius: 15px;
+      background-color: lightgray;
+      color: #0277BD;
+      padding: 15px;
+    }
+  </style>
   <script src="../platform/platform.js"></script>
   <link rel="import" href="re-captcha.html">
   <script type="text/javascript">
     window.addEventListener('polymer-ready', function(e) {
       var rec = document.querySelector('re-captcha');
+      var message=document.querySelector('#eventMessage');
       rec.addEventListener('captcha-response',function(e){
-        console.log('REC response:'+ e.detail.response );
+        message.textContent="CAPTCHA RESPONSE:"+ e.detail.response;
       });
 
       rec.addEventListener('captcha-rendered',function(e){
-        console.log('REC RENDERED');
+        message.textContent="CAPTCHA RENDERED";
       });
     });
   </script>
@@ -26,5 +34,7 @@
   <re-captcha theme="dark" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
   <p>Audio re-captcha</p>
   <re-captcha type="audio" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <p>Event message (working with the first captcha)</p>
+  <p id="eventMessage"></p>
 </body>
 </html>
