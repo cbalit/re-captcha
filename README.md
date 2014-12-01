@@ -10,6 +10,12 @@ bower install re-captcha
 ````
 ## Usage
 
+Becaus the component is built on Polymer, you should add the script in your page
+```html
+<script src="platform/platform.js"></script>
+```
+
+
 Import the component:
 ```html
 <link rel="import" href="re-captcha.html">
