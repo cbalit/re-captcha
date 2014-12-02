@@ -6,15 +6,20 @@
     <title>reCaptcha Test Runner</title>
     <meta charset="UTF-8">
 
-    <script src="../../platform/platform.js"></script>
-
-    <link rel="import" href="tests.html">
+    <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <link rel="import" href="../re-captcha.html">
 
   </head>
 
   <body>
-
-    <div id="mocha"></div>
+  <script>
+    // Load and run all tests (.html, .js) as one suite:
+    WCT.loadSuites([
+      're-captcha-basic.html',
+      're-captcha-basic.js'
+    ]);
+  </script>
 
   </body>
 

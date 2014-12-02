@@ -4,9 +4,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>re-captcha</title>
 
-  <script src="../../platform/platform.js"></script>
-  <link rel="import" href="../../polymer-test-tools/tools.html">
-  <script src="../../polymer-test-tools/htmltest.js"></script>
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
   <!-- Step 1: import the element to test -->
   <link rel="import" href="../re-captcha.html">
@@ -14,25 +13,177 @@
 </head>
 <body>
 
-  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="default" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="custom" theme="dark" type="audio" timeout="1000" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="invalid" theme="foo" type="bar" timeout="notanumber" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
 
   <script>
 
-    document.addEventListener('polymer-ready', function() {
-      // Test default properties
-      var myEl = document.querySelector('re-captcha');
-      assert.equal(myEl.sitekey, '6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
-      assert.equal(myEl.theme, 'light');
-      assert.equal(myEl.type, 'image');
-      assert.equal(myEl.timeout, 3000);
+    var myEl;
 
-      // Test events
-      myEl.addEventListener('captcha-response', function(event) {
-        assert.equal(event.detail.response, 'response');
-        done();
+    suite('<re-captcha> BASIC HTML', function () {
+
+      beforeEach(function () {
+        myEl = document.querySelector('re-captcha#default');
       });
-      myEl.responseHandler('response');
+
+      afterEach(function () {
+        myEl=null;
+      });
+
+      suite('Properties', function () {
+        test('defaults properties', function () {
+          assert.equal(myEl.sitekey, '6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
+          assert.equal(myEl.theme, 'light');
+          assert.equal(myEl.type, 'image');
+          assert.equal(myEl.timeout, 3000);
+        });
+
+        test('set properties', function () {
+          myEl = document.querySelector('re-captcha#custom');
+          //flush(function () {
+          assert.equal(myEl.theme, 'dark');
+          assert.equal(myEl.type, 'audio');
+          assert.equal(myEl.timeout, 1000);
+          //done()
+          //});
+        });
+
+        test('set only allow properties', function (done) {
+          myEl = document.querySelector('re-captcha#invalid');
+          flush(function () {
+            assert.equal(myEl.theme, 'light');
+            assert.equal(myEl.type, 'image');
+            assert.equal(myEl.timeout, 3000);
+            done();
+          });
+        });
+
+        suite('THEME Properties', function () {
+          test('should save theme attribute if it is light', function () {
+            myEl.setAttribute('theme', 'light');
+            assert.equal(myEl.theme, 'light');
+          });
+
+          test('should save theme attribute if it is dark', function () {
+            myEl.setAttribute('theme', 'dark');
+            assert.equal(myEl.theme, 'dark');
+          });
+
+          test('should not save theme attribute if it is not dark or light', function (done) {
+            myEl.setAttribute('theme', 'bar');
+            flush(function () {
+              assert.equal(myEl.theme, 'light');
+              done();
+            });
+          });
+          test('should not save theme attribute if it is null', function (done) {
+            myEl.setAttribute('theme', null);
+            flush(function () {
+              assert.equal(myEl.theme, 'light');
+              done();
+            });
+          });
+          test('should not save theme attribute if it is undefined', function (done) {
+            myEl.setAttribute('theme', undefined);
+            flush(function () {
+              assert.equal(myEl.theme, 'light');
+              done();
+            });
+          });
+
+        });
+
+        suite('TYPE Properties', function () {
+          test('should save type attribute if it is image', function () {
+            myEl.setAttribute('type', 'image');
+            assert.equal(myEl.type, 'image');
+          });
+
+          test('should save type attribute if it is audio', function () {
+            myEl.setAttribute('type', 'audio');
+            assert.equal(myEl.type, 'audio');
+          });
+
+          test('should not save type attribute if it is not image or audio', function (done) {
+            myEl.setAttribute('type', 'bar');
+            flush(function () {
+              assert.equal(myEl.type, 'image');
+              done();
+            });
+          });
+
+          test('should not save type attribute if it is null', function (done) {
+            myEl.setAttribute('type', null);
+            flush(function () {
+              assert.equal(myEl.type, 'image');
+              done();
+            });
+          });
+
+          test('should not save type attribute if it is undefined', function (done) {
+            myEl.setAttribute('type', undefined);
+            flush(function () {
+              assert.equal(myEl.type, 'image');
+              done();
+            });
+          });
+
+        });
+
+        suite('TIMEOUT Properties', function () {
+          test('should save type attribute if it is a number', function () {
+            myEl.setAttribute('timeout', '4500');
+            assert.equal(myEl.timeout, '4500');
+          });
+
+
+          test('should not save type attribute if it is not a number', function (done) {
+            myEl.setAttribute('timeout', 'notANumber');
+            flush(function () {
+              assert.equal(myEl.timeout, '3000');
+              done();
+            });
+          });
+
+          test('should not save type attribute if it is null', function (done) {
+            myEl.setAttribute('timeout', null);
+            flush(function () {
+              assert.equal(myEl.timeout, '3000');
+              done();
+            });
+          });
+
+          test('should not save type attribute if it is undefined', function (done) {
+            myEl.setAttribute('timeout', undefined);
+            flush(function () {
+              assert.equal(myEl.timeout, '3000');
+              done();
+            });
+          });
+        });
+
+
+      });
+
+      suite('Events', function () {
+        test('should save the response', function () {
+          myEl.responseHandler('response');
+          assert.equal(myEl.response, 'response');
+        });
+
+
+        test('should fire a captcha-response', function (done) {
+          myEl.addEventListener('captcha-response', function (event) {
+            assert.equal(event.detail.response, 'response');
+            done();
+          });
+          myEl.responseHandler('response');
+        });
+
+      });
     });
+
 
   </script>
 

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>re-captcha</title>
+
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../re-captcha.html">
+
+</head>
+<body>
+
+  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+
+  <script>
+
+    var myEl = document.querySelector('re-captcha');
+
+    suite('<re-captcha> LOADING', function() {
+      test('should load the script tag if STATIC SCRIPT_LOADED is not set', function() {
+
+      });
+
+      test('should not load the script tag if STATIC SCRIPT_LOADED is set', function() {
+      });
+
+      test('should load the script tag on the first recapatcha', function() {
+      });
+
+      test('should not load the script tag on other recapatcha (not the first)', function() {
+      });
+
+      test('should create a div child with a unique id', function() {
+      });
+
+
+
+      test('should fire a render event', function() {
+      });
+
+
+    });
+
+  </script>
+
+</body>
+</html>

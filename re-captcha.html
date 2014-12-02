@@ -22,7 +22,6 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
         display: block;
       }
     </style>
-    <content></content>
   </template>
 
   <script>
@@ -76,6 +75,22 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
          * @default ''
          */
         response:null,
+        observe: {
+          theme: 'validate',
+          type: 'validate',
+          timeout: 'validate'
+        },
+        validate:function () {
+          if(this.theme!='dark' && this.theme!='light'){
+            this.theme='light';
+          }
+          if(this.type!='audio' && this.type!='image'){
+            this.type='image';
+          }
+          if(isNaN(this.timeout)){
+            this.timeout=3000;
+          }
+        },
         generateScriptApiTag:function () {
           var head= document.getElementsByTagName('head')[0];
           var script= document.createElement('script');
