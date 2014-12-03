@@ -41,12 +41,30 @@
 
         it('set properties', function () {
           myEl = document.querySelector('re-captcha#custom');
-          //flush(function () {
           expect(myEl.theme).to.equal('dark');
           expect(myEl.type).to.equal('audio');
           expect(myEl.timeout).to.equal(1000);
-          //done()
-          //});
+        });
+
+        it('should not throw an error if the sitekey is provided', function (done) {
+          myEl = new Recaptcha();
+          myEl.sitekey="sitekey";
+          //wrap in a function to keep 'this' working
+          var fn=function(){
+            myEl.attached();
+          };
+          flush(function () {
+            expect(fn).not.to.throw(Error);
+            done();
+          })
+        });
+
+        it('should throw an error if the sitekey is not provided', function () {
+          myEl = new Recaptcha();
+          var fn=function(){
+            myEl.attached();
+          };
+          expect(fn).to.throw(/sitekey attribute is mandatory/);
         });
 
         it('set only allow properties', function (done) {
