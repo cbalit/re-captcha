@@ -6,45 +6,76 @@
 
   <script src="../../webcomponentsjs/webcomponents.min.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-
-  <!-- Step 1: import the element to test -->
+  <script src="TestUtils.js"></script>
+  <!-- Step 1: import the element to it -->
   <link rel="import" href="../re-captcha.html">
 
 </head>
 <body>
 
-  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
 
-  <script>
+<script>
 
-    var myEl = document.querySelector('re-captcha');
+  var myEl;
 
-    suite('<re-captcha> LOADING', function() {
-      test('should load the script tag if STATIC SCRIPT_LOADED is not set', function() {
+  describe('<re-captcha> LOADING', function () {
 
-      });
-
-      test('should not load the script tag if STATIC SCRIPT_LOADED is set', function() {
-      });
-
-      test('should load the script tag on the first recapatcha', function() {
-      });
-
-      test('should not load the script tag on other recapatcha (not the first)', function() {
-      });
-
-      test('should create a div child with a unique id', function() {
-      });
-
-
-
-      test('should fire a render event', function() {
-      });
-
-
+    afterEach(function () {
+      myEl.resetScriptLoaded();
+      document.body.removeChild(myEl);
+      myEl = null;
     });
 
-  </script>
+    describe('SCRIPT TAG', function () {
+      beforeEach(function () {
+        sinon.spy(Recaptcha.prototype, "generateScriptApiTag");
+        myEl = Utils.createReCaptcha();
+      });
+
+      afterEach(function () {
+        Recaptcha.prototype.generateScriptApiTag.restore();
+      });
+
+
+      it('should call generateScriptApiTag when creating the first instance', function () {
+        expect(Recaptcha.prototype.generateScriptApiTag.calledOnce).to.be.true;
+      });
+
+
+      it('should not call generateScriptApiTag more the once', function () {
+        myEl = Utils.createReCaptcha();
+        expect(Recaptcha.prototype.generateScriptApiTag.calledOnce).to.be.true;
+
+      });
+
+      it('should add the script tag', function () {
+        var script = Utils.getReCaptchaScriptTag();
+        expect(script).not.to.be.null;
+      });
+    });
+
+    describe('DIV CHILD', function () {
+      beforeEach(function () {
+        myEl = Utils.createReCaptcha();
+      });
+
+      it('should create a single div child', function () {
+        expect(myEl.childNodes).to.have.length(1);
+        var div = myEl.childNodes[0];
+        expect(div).not.to.be.null;
+      });
+
+      it('should create a div child with a unique id', function () {
+        var div1 = myEl.childNodes[0];
+        myEl = Utils.createReCaptcha();
+        var div2 = myEl.childNodes[0];
+        expect(div1.id).not.to.equal(div2.id);
+      });
+    });
+
+  });
+
+</script>
 
 </body>
 </html>

@@ -6,42 +6,150 @@
 
   <script src="../../webcomponentsjs/webcomponents.min.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-
+  <script src="TestUtils.js"></script>
   <!-- Step 1: import the element to test -->
   <link rel="import" href="../re-captcha.html">
 
 </head>
 <body>
 
-  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
-
   <script>
+    var myEl,clock,grecaptchaMock,widgetId;
 
-    var myEl = document.querySelector('re-captcha');
-    sinon.spy();
 
-    suite('<re-captcha> rendering', function() {
+    describe('<re-captcha> Widegt API', function() {
 
-      test('should wait for window.grecaptcha for rendering', function() {
+      beforeEach(function () {
+        widgetId="WidgetId";
+        clock = sinon.useFakeTimers();
+        myEl = new Recaptcha();
+        grecaptchaMock=sinon.stub({
+          render:function(options){},
+          reset:function(id){},
+          getResponse:function(id){}
+        });
+        grecaptchaMock.render.returns(widgetId);
       });
 
-
-      test('should wait for window.grecaptcha for rendering until we reach the timeout', function() {
+      afterEach(function () {
+        myEl=null;
+        grecaptchaMock=null;
       });
 
+      describe('Time out', function() {
 
-      test('should call window.grecaptcha.render with the correct options', function() {
+        beforeEach(function () {
+          sinon.spy(Recaptcha.prototype, "renderWhenApiReady");
+          sinon.spy(Recaptcha.prototype, "render");
+        });
+
+        afterEach(function () {
+          Recaptcha.prototype.renderWhenApiReady.restore();
+          Recaptcha.prototype.render.restore();
+        });
+
+
+        it('should call render when window.grecaptcha exist', function() {
+          window.grecaptcha=grecaptchaMock;
+          myEl.renderWhenApiReady();
+          expect(Recaptcha.prototype.render.called).to.be.true;
+        });
+
+        it('should no call render until when window.grecaptcha not exist', function() {
+          window.grecaptcha=null;
+          myEl.renderWhenApiReady();
+          clock.tick(myEl.timeout);
+          expect(Recaptcha.prototype.render.called).not.to.be.true;
+        });
+
+        it('should call render when window.grecaptcha appear before timeout', function() {
+          window.grecaptcha=null;
+          setTimeout(function(){
+            window.grecaptcha=grecaptchaMock;
+          },myEl.timeout-10);
+          myEl.renderWhenApiReady();
+          clock.tick(myEl.timeout);
+          expect(Recaptcha.prototype.render.called).to.be.true;
+        });
+
+        it('should not call render when window.grecaptcha appear after timeout', function() {
+          window.grecaptcha=null;
+          setTimeout(function(){
+            window.grecaptcha=grecaptchaMock;
+          },myEl.timeout+10);
+          myEl.renderWhenApiReady();
+          clock.tick(myEl.timeout);
+          expect(Recaptcha.prototype.render.called).not.to.be.true;
+        });
       });
 
-      test('should store the widget id in this.captchaId', function() {
-      });
+      describe('Rendering', function() {
 
-      test('should create a div child with a unique id', function() {
-      });
+        beforeEach(function () {
+          window.grecaptcha=grecaptchaMock;
+          sinon.spy(Recaptcha.prototype, "renderWhenApiReady");
+          sinon.spy(Recaptcha.prototype, "render");
+        });
 
-      test('should fire a render event', function() {
-      });
+        afterEach(function () {
+          Recaptcha.prototype.renderWhenApiReady.restore();
+          Recaptcha.prototype.render.restore();
+        });
 
+        it('should call window.grecaptcha.render with the correct options', function() {
+            myEl.render();
+            expect(grecaptchaMock.render.called).to.be.true;
+        });
+
+        it('should call window.grecaptcha.render with the conatinerId as first arg', function() {
+          myEl.containerId="containerId";
+          myEl.render();
+          var args = grecaptchaMock.render.args[0];
+          expect(args[0]).to.equal(myEl.containerId);
+        });
+
+        it('should call window.grecaptcha.render with an option containing the sitekey', function() {
+          myEl.sitekey="sitekey";
+          myEl.render();
+          var args = grecaptchaMock.render.args[0];
+          var options=args[1];
+          expect(options.sitekey).to.equal(myEl.sitekey);
+        });
+
+        it('should call window.grecaptcha.render with an option containing the theme', function() {
+          myEl.theme="theme";
+          myEl.render();
+          var args = grecaptchaMock.render.args[0];
+          var options=args[1];
+          expect(options.theme).to.equal(myEl.theme);
+        });
+
+        it('should call window.grecaptcha.render with an option containing the type', function() {
+          myEl.type="type";
+          myEl.render();
+          var args = grecaptchaMock.render.args[0];
+          var options=args[1];
+          expect(options.type).to.equal(myEl.type);
+        });
+
+
+
+        it('should store the widget id return by window.grecaptcha.render in captchaId', function() {
+          myEl.captchaId=null;
+          myEl.render();
+          expect(myEl.captchaId).to.equal(widgetId);
+        });
+
+
+        it('should fire a render event', function(done) {
+          myEl.addEventListener('captcha-rendered', function (event) {
+            expect(event.detail).to.be.empty;
+            done();
+          });
+          myEl.render();
+        });
+
+      });
 
     });
 

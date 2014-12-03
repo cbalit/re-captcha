@@ -15,7 +15,7 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
 @status alpha
 @homepage https://github.com/cbalit/re-captcha
 -->
-<polymer-element name="re-captcha" attributes="sitekey theme type timeout">
+<polymer-element name="re-captcha" attributes="sitekey theme type timeout" constructor="Recaptcha">
   <template>
     <style>
       :host {
@@ -91,6 +91,9 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
             this.timeout=3000;
           }
         },
+        resetScriptLoaded: function () {
+          SCRIPT_LOADED=false;
+        },
         generateScriptApiTag:function () {
           var head= document.getElementsByTagName('head')[0];
           var script= document.createElement('script');
@@ -114,6 +117,9 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
           return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
         },
         ready: function () {
+
+        },
+        attached: function () {
           if(this.sitekey===''){
             throw new Error("sitekey attribute is mandatory for re-captcha element");
             return;

@@ -21,7 +21,7 @@
 
     var myEl;
 
-    suite('<re-captcha> BASIC HTML', function () {
+    describe('<re-captcha> BASIC HTML', function () {
 
       beforeEach(function () {
         myEl = document.querySelector('re-captcha#default');
@@ -31,133 +31,133 @@
         myEl=null;
       });
 
-      suite('Properties', function () {
-        test('defaults properties', function () {
-          assert.equal(myEl.sitekey, '6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
-          assert.equal(myEl.theme, 'light');
-          assert.equal(myEl.type, 'image');
-          assert.equal(myEl.timeout, 3000);
+      describe('Properties', function () {
+        it('defaults properties', function () {
+          expect(myEl.sitekey).to.equal('6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4');
+          expect(myEl.theme).to.equal('light');
+          expect(myEl.type).to.equal('image');
+          expect(myEl.timeout).to.equal(3000);
         });
 
-        test('set properties', function () {
+        it('set properties', function () {
           myEl = document.querySelector('re-captcha#custom');
           //flush(function () {
-          assert.equal(myEl.theme, 'dark');
-          assert.equal(myEl.type, 'audio');
-          assert.equal(myEl.timeout, 1000);
+          expect(myEl.theme).to.equal('dark');
+          expect(myEl.type).to.equal('audio');
+          expect(myEl.timeout).to.equal(1000);
           //done()
           //});
         });
 
-        test('set only allow properties', function (done) {
+        it('set only allow properties', function (done) {
           myEl = document.querySelector('re-captcha#invalid');
           flush(function () {
-            assert.equal(myEl.theme, 'light');
-            assert.equal(myEl.type, 'image');
-            assert.equal(myEl.timeout, 3000);
+            expect(myEl.theme).to.equal('light');
+            expect(myEl.type).to.equal('image');
+            expect(myEl.timeout).to.equal(3000);
             done();
           });
         });
 
-        suite('THEME Properties', function () {
-          test('should save theme attribute if it is light', function () {
+        describe('THEME Properties', function () {
+          it('should save theme attribute if it is light', function () {
             myEl.setAttribute('theme', 'light');
-            assert.equal(myEl.theme, 'light');
+            expect(myEl.theme).to.equal('light');
           });
 
-          test('should save theme attribute if it is dark', function () {
+          it('should save theme attribute if it is dark', function () {
             myEl.setAttribute('theme', 'dark');
-            assert.equal(myEl.theme, 'dark');
+            expect(myEl.theme).to.equal('dark');
           });
 
-          test('should not save theme attribute if it is not dark or light', function (done) {
+          it('should not save theme attribute if it is not dark or light', function (done) {
             myEl.setAttribute('theme', 'bar');
             flush(function () {
-              assert.equal(myEl.theme, 'light');
+              expect(myEl.theme).to.equal('light');
               done();
             });
           });
-          test('should not save theme attribute if it is null', function (done) {
+          it('should not save theme attribute if it is null', function (done) {
             myEl.setAttribute('theme', null);
             flush(function () {
-              assert.equal(myEl.theme, 'light');
+              expect(myEl.theme).to.equal('light');
               done();
             });
           });
-          test('should not save theme attribute if it is undefined', function (done) {
+          it('should not save theme attribute if it is undefined', function (done) {
             myEl.setAttribute('theme', undefined);
             flush(function () {
-              assert.equal(myEl.theme, 'light');
+              expect(myEl.theme).to.equal('light');
               done();
             });
           });
 
         });
 
-        suite('TYPE Properties', function () {
-          test('should save type attribute if it is image', function () {
+        describe('TYPE Properties', function () {
+          it('should save type attribute if it is image', function () {
             myEl.setAttribute('type', 'image');
-            assert.equal(myEl.type, 'image');
+            expect(myEl.type).to.equal('image');
           });
 
-          test('should save type attribute if it is audio', function () {
+          it('should save type attribute if it is audio', function () {
             myEl.setAttribute('type', 'audio');
-            assert.equal(myEl.type, 'audio');
+            expect(myEl.type).to.equal('audio');
           });
 
-          test('should not save type attribute if it is not image or audio', function (done) {
+          it('should not save type attribute if it is not image or audio', function (done) {
             myEl.setAttribute('type', 'bar');
             flush(function () {
-              assert.equal(myEl.type, 'image');
+              expect(myEl.type).to.equal('image');
               done();
             });
           });
 
-          test('should not save type attribute if it is null', function (done) {
+          it('should not save type attribute if it is null', function (done) {
             myEl.setAttribute('type', null);
             flush(function () {
-              assert.equal(myEl.type, 'image');
+              expect(myEl.type).to.equal('image');
               done();
             });
           });
 
-          test('should not save type attribute if it is undefined', function (done) {
+          it('should not save type attribute if it is undefined', function (done) {
             myEl.setAttribute('type', undefined);
             flush(function () {
-              assert.equal(myEl.type, 'image');
+              expect(myEl.type).to.equal('image');
               done();
             });
           });
 
         });
 
-        suite('TIMEOUT Properties', function () {
-          test('should save type attribute if it is a number', function () {
+        describe('TIMEOUT Properties', function () {
+          it('should save type attribute if it is a number', function () {
             myEl.setAttribute('timeout', '4500');
-            assert.equal(myEl.timeout, '4500');
+            expect(myEl.timeout).to.equal(4500);
           });
 
 
-          test('should not save type attribute if it is not a number', function (done) {
+          it('should not save type attribute if it is not a number', function (done) {
             myEl.setAttribute('timeout', 'notANumber');
             flush(function () {
-              assert.equal(myEl.timeout, '3000');
+              expect(myEl.timeout).to.equal(3000);
               done();
             });
           });
 
-          test('should not save type attribute if it is null', function (done) {
+          it('should not save type attribute if it is null', function (done) {
             myEl.setAttribute('timeout', null);
             flush(function () {
-              assert.equal(myEl.timeout, '3000');
+              expect(myEl.timeout).to.equal(3000);
               done();
             });
           });
 
-          test('should not save type attribute if it is undefined', function (done) {
+          it('should not save type attribute if it is undefined', function (done) {
             myEl.setAttribute('timeout', undefined);
             flush(function () {
-              assert.equal(myEl.timeout, '3000');
+              expect(myEl.timeout).to.equal(3000);
               done();
             });
           });
@@ -166,16 +166,16 @@
 
       });
 
-      suite('Events', function () {
-        test('should save the response', function () {
+      describe('Events', function () {
+        it('should save the response', function () {
           myEl.responseHandler('response');
-          assert.equal(myEl.response, 'response');
+          expect(myEl.response).to.equal('response');
         });
 
 
-        test('should fire a captcha-response', function (done) {
+        it('should fire a captcha-response', function (done) {
           myEl.addEventListener('captcha-response', function (event) {
-            assert.equal(event.detail.response, 'response');
+            expect(event.detail.response).to.equal('response');
             done();
           });
           myEl.responseHandler('response');
