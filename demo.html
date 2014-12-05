@@ -11,11 +11,11 @@
       padding: 15px;
     }
   </style>
-  <script src="../webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="re-captcha.html">
+  <script src="../webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="google-recaptcha.html">
   <script type="text/javascript">
     window.addEventListener('polymer-ready', function(e) {
-      var rec = document.querySelector('re-captcha');
+      var rec = document.querySelector('google-recaptcha');
       var message = document.querySelector('#eventMessage');
       rec.addEventListener('captcha-response', function(e){
         message.textContent = "CAPTCHA RESPONSE:" + e.detail.response;
@@ -29,11 +29,11 @@
 </head>
 <body unresolved>
   <p>Default re-captcha</p>
-  <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <google-recaptcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
   <p>Dark re-captcha</p>
-  <re-captcha theme="dark" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <google-recaptcha theme="dark" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
   <p>Audio re-captcha</p>
-  <re-captcha type="audio" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <google-recaptcha type="audio" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
   <p>Event message (working with the first captcha)</p>
   <p id="eventMessage"></p>
 </body>
