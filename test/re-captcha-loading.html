@@ -13,7 +13,6 @@
 </head>
 <body>
 
-
 <script>
 
   var myEl;
@@ -56,6 +55,7 @@
 
     describe('DIV CHILD', function () {
       beforeEach(function () {
+
         myEl = Utils.createReCaptcha();
       });
 
@@ -70,6 +70,14 @@
         myEl = Utils.createReCaptcha();
         var div2 = myEl.childNodes[0];
         expect(div1.id).not.to.equal(div2.id);
+      });
+
+      it('should generate container once', function () {
+        expect(myEl.childNodes).to.have.length(1);
+        var div1 = myEl.childNodes[0];
+        myEl.generateContainer();
+        expect(myEl.childNodes).to.have.length(1);
+        expect(div1).to.equal(myEl.childNodes[0]);
       });
     });
 

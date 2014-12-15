@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<div id="newcont"></div>
 
   <script>
     var myEl,clock,grecaptchaMock,widgetId;
@@ -81,6 +82,7 @@
           clock.tick(myEl.timeout);
           expect(Recaptcha.prototype.render.called).not.to.be.true;
         });
+
       });
 
       describe('Rendering', function() {
@@ -149,6 +151,13 @@
           myEl.render();
         });
 
+        it('should not regenerate the internal container if we re attached the element in another element', function() {
+          window.grecaptcha=grecaptchaMock;
+          myEl = Utils.createReCaptcha();
+          var newdiv=document.querySelector('#newcont');
+          newdiv.appendChild(myEl);
+          expect(Recaptcha.prototype.renderWhenApiReady.calledOnce).to.be.true;;
+        });
       });
 
     });

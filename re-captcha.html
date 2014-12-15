@@ -106,10 +106,12 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
           SCRIPT_LOADED=true;
         },
         generateContainer:function () {
-          var div = document.createElement('div');
-          this.containerId=this.guidGenerator();
-          div.setAttribute('id',this.containerId);
-          this.appendChild(div);
+          if(this.containerId===""){
+            var div = document.createElement('div');
+            this.containerId=this.guidGenerator();
+            div.setAttribute('id',this.containerId);
+            this.appendChild(div);
+          }
         },
         guidGenerator:function () {
           var S4 = function() {
@@ -128,8 +130,10 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
           if(!SCRIPT_LOADED){
             this.generateScriptApiTag();
           }
-          this.generateContainer();
-          this.renderWhenApiReady();
+          if(!this.isWidgetLoaded()){
+            this.generateContainer();
+            this.renderWhenApiReady();
+          }
         },
         renderWhenApiReady: function () {
           if(!window.grecaptcha){
@@ -209,6 +213,15 @@ More on reCaptcha Api: https://developers.google.com/recaptcha/docs/start
         responseHandler: function (response) {
           this.response=response;
           this.fire('captcha-response',{response:response});
+        },
+        /**
+         * The `isWidgetLoaded` method return true if the reCaptcha widget has been loaded.
+         *
+         * @method isWidgetLoaded
+         * @return {boolean} true if the captcha widget is loaded
+         */
+        isWidgetLoaded: function () {
+          return this.captchaId!=="";
         }
       });
 
