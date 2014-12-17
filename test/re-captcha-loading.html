@@ -65,12 +65,7 @@
         expect(div).not.to.be.null;
       });
 
-      it('should create a div child with a unique id', function () {
-        var div1 = myEl.childNodes[0];
-        myEl = Utils.createReCaptcha();
-        var div2 = myEl.childNodes[0];
-        expect(div1.id).not.to.equal(div2.id);
-      });
+
 
       it('should generate container once', function () {
         expect(myEl.childNodes).to.have.length(1);

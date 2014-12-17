@@ -103,11 +103,11 @@
             expect(grecaptchaMock.render.called).to.be.true;
         });
 
-        it('should call window.grecaptcha.render with the conatinerId as first arg', function() {
-          myEl.containerId="containerId";
+        it('should call window.grecaptcha.render with the container as first arg', function() {
+          myEl.container=document.createElement('div');
           myEl.render();
           var args = grecaptchaMock.render.args[0];
-          expect(args[0]).to.equal(myEl.containerId);
+          expect(args[0]).to.equal(myEl.container);
         });
 
         it('should call window.grecaptcha.render with an option containing the sitekey', function() {
