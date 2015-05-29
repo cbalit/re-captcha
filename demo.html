@@ -11,10 +11,10 @@
       padding: 15px;
     }
   </style>
-  <script src="../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="google-recaptcha.html">
   <script type="text/javascript">
-    window.addEventListener('polymer-ready', function(e) {
+    window.addEventListener('WebComponentsReady', function(e) {
       var rec = document.querySelector('google-recaptcha');
       var message = document.querySelector('#eventMessage');
       rec.addEventListener('captcha-response', function(e){
@@ -24,10 +24,15 @@
       rec.addEventListener('captcha-rendered', function(e){
         message.textContent = "CAPTCHA RENDERED";
       });
+
+      rec.addEventListener('captcha-expired', function(e){
+        message.textContent = "CAPTCHA EXPIRED";
+      });
+
     });
   </script>
 </head>
-<body unresolved>
+<body>
   <p>Default re-captcha</p>
   <google-recaptcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
   <p>Dark re-captcha</p>
