@@ -1,4 +1,4 @@
-google-recaptcha (WIP)
+re-captcha (WIP)
 ========================
 
-## See the [component page](http://GoogleWebComponents.github.io/google-recaptcha) for more information.
+## See the [component page](http://cbalit.github.io/re-captcha/components/re-captcha/) for more information.
