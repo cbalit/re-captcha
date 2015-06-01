@@ -8,23 +8,23 @@
   <script src="../../web-component-tester/browser.js"></script>
 
   <!-- Step 1: import the element to test -->
-  <link rel="import" href="../google-recaptcha.html">
+  <link rel="import" href="../re-captcha.html">
 
 </head>
 <body>
 
-  <google-recaptcha id="default" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
-  <google-recaptcha id="custom" theme="dark" type="audio" timeout="1000" tabindex="5" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
-  <google-recaptcha id="invalid" theme="foo" type="bar" timeout="notanumber" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></google-recaptcha>
+  <re-captcha id="default" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="custom" theme="dark" type="audio" timeout="1000" tabindex="5" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="invalid" theme="foo" type="bar" timeout="notanumber" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
 
   <script>
 
     var myEl;
 
-    describe('<google-recaptcha> BASIC HTML', function () {
+    describe('<re-captcha> BASIC HTML', function () {
 
       beforeEach(function () {
-        myEl = document.querySelector('google-recaptcha#default');
+        myEl = document.querySelector('re-captcha#default');
       });
 
       afterEach(function () {
@@ -41,7 +41,7 @@
         });
 
         it('set properties', function () {
-          myEl = document.querySelector('google-recaptcha#custom');
+          myEl = document.querySelector('re-captcha#custom');
           expect(myEl.theme).to.equal('dark');
           expect(myEl.type).to.equal('audio');
           expect(myEl.timeout).to.equal(1000);
@@ -70,7 +70,7 @@
         });
 
         it('set only allow properties', function (done) {
-          myEl = document.querySelector('google-recaptcha#invalid');
+          myEl = document.querySelector('re-captcha#invalid');
           flush(function () {
             expect(myEl.theme).to.equal('light');
             expect(myEl.type).to.equal('image');

@@ -7,7 +7,7 @@ See https://developers.google.com/recaptcha
 
 ##### Example
   ```html
-  <google-recaptcha sitekey="yoursitekey"></google-recaptcha>
+  <re-captcha sitekey="yoursitekey"></re-captcha>
   ```
 
 @element google-captcha
@@ -16,7 +16,7 @@ See https://developers.google.com/recaptcha
 @homepage https://github.com/cbalit/re-captcha
 @demo demo.html
 -->
-<dom-module id="google-recaptcha">
+<dom-module id="re-captcha">
   <style>
     :host {
       display: block;
@@ -30,7 +30,7 @@ See https://developers.google.com/recaptcha
     'use strict';
     var SCRIPT_LOADED=false;
     var constructor=Polymer({
-      is: 'google-recaptcha',
+      is: 're-captcha',
 
       _API_URL:'https://www.google.com/recaptcha/api.js',
       _RETRY_DELAY:200,
