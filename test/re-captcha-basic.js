@@ -1,4 +1,4 @@
-describe('re-captcha BASIC JS', function () {
+describe('google-recaptcha BASIC JS', function () {
   var myEl;
 
 

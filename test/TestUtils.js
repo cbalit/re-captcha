@@ -15,7 +15,7 @@ var Utils={
     return recaptcha;
   },
   getReCaptchaScriptTag : function () {
-    var script = document.querySelector("script[src='" + Recaptcha.prototype.API_URL + "']");
+    var script = document.querySelector("script[src='" + Recaptcha.prototype._API_URL + "']");
     return script;
   }
 };
