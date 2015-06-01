@@ -4,6 +4,7 @@
   "keywords": [
     "recaptcha",
     "polymer",
+    "web-component",
     "web-components"
   ],
   "main": "re-captcha.html",
@@ -22,10 +23,10 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
     "../",
-    "test",
-    "tests"
+    "/.*",
+    "/test/",
+    "/demo/"
   ]
 }
