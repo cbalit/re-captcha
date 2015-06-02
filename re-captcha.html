@@ -161,7 +161,8 @@ See https://developers.google.com/recaptcha
       _generateContainer:function () {
         if(this._container===null){
           this._container = document.createElement('div');
-          this.appendChild(this._container);
+          //this.appendChild(this._container);
+          Polymer.dom(this).appendChild(this._container);
         }
       },
       _renderWhenApiReady: function () {

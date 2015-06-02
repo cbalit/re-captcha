@@ -55,23 +55,22 @@
 
     describe('DIV CHILD', function () {
       beforeEach(function () {
-
         myEl = Utils.createReCaptcha();
       });
 
       it('should create a single div child', function () {
-        expect(myEl.childNodes).to.have.length(1);
-        var div = myEl.childNodes[0];
+        expect(Polymer.dom(myEl).childNodes).to.have.length(1);
+        var div = Polymer.dom(myEl).childNodes[0];
         expect(div).not.to.be.null;
       });
 
 
       it('should generate container once', function () {
-        expect(myEl.childNodes).to.have.length(1);
-        var div1 = myEl.childNodes[0];
+        expect(Polymer.dom(myEl).childNodes).to.have.length(1);
+        var div1 = Polymer.dom(myEl).childNodes[0];
         myEl._generateContainer();
-        expect(myEl.childNodes).to.have.length(1);
-        expect(div1).to.equal(myEl.childNodes[0]);
+        expect(Polymer.dom(myEl).childNodes).to.have.length(1);
+        expect(div1).to.equal(Polymer.dom(myEl).childNodes[0]);
       });
     });
 
