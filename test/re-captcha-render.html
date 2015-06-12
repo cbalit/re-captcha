@@ -39,47 +39,47 @@
       describe('Time out', function() {
 
         beforeEach(function () {
-          sinon.spy(Recaptcha.prototype, "renderWhenApiReady");
-          sinon.spy(Recaptcha.prototype, "render");
+          sinon.spy(Recaptcha.prototype, "_renderWhenApiReady");
+          sinon.spy(Recaptcha.prototype, "_render");
         });
 
         afterEach(function () {
-          Recaptcha.prototype.renderWhenApiReady.restore();
-          Recaptcha.prototype.render.restore();
+          Recaptcha.prototype._renderWhenApiReady.restore();
+          Recaptcha.prototype._render.restore();
         });
 
 
-        it('should call render when window.grecaptcha exist', function() {
+        it('should call _render when window.grecaptcha exist', function() {
           window.grecaptcha=grecaptchaMock;
-          myEl.renderWhenApiReady();
-          expect(Recaptcha.prototype.render.called).to.be.true;
+          myEl._renderWhenApiReady();
+          expect(Recaptcha.prototype._render.called).to.be.true;
         });
 
-        it('should no call render until when window.grecaptcha not exist', function() {
+        it('should no call _render until when window.grecaptcha not exist', function() {
           window.grecaptcha=null;
-          myEl.renderWhenApiReady();
+          myEl._renderWhenApiReady();
           clock.tick(myEl.timeout);
-          expect(Recaptcha.prototype.render.called).not.to.be.true;
+          expect(Recaptcha.prototype._render.called).not.to.be.true;
         });
 
-        it('should call render when window.grecaptcha appear before timeout', function() {
+        it('should call _render when window.grecaptcha appear before timeout', function() {
           window.grecaptcha=null;
           setTimeout(function(){
             window.grecaptcha=grecaptchaMock;
           },myEl.timeout-10);
-          myEl.renderWhenApiReady();
+          myEl._renderWhenApiReady();
           clock.tick(myEl.timeout);
-          expect(Recaptcha.prototype.render.called).to.be.true;
+          expect(Recaptcha.prototype._render.called).to.be.true;
         });
 
-        it('should not call render when window.grecaptcha appear after timeout', function() {
+        it('should not call _render when window.grecaptcha appear after timeout', function() {
           window.grecaptcha=null;
           setTimeout(function(){
             window.grecaptcha=grecaptchaMock;
           },myEl.timeout+10);
-          myEl.renderWhenApiReady();
+          myEl._renderWhenApiReady();
           clock.tick(myEl.timeout);
-          expect(Recaptcha.prototype.render.called).not.to.be.true;
+          expect(Recaptcha.prototype._render.called).not.to.be.true;
         });
       });
 
@@ -87,46 +87,46 @@
 
         beforeEach(function () {
           window.grecaptcha=grecaptchaMock;
-          sinon.spy(Recaptcha.prototype, "renderWhenApiReady");
-          sinon.spy(Recaptcha.prototype, "render");
+          sinon.spy(Recaptcha.prototype, "_renderWhenApiReady");
+          sinon.spy(Recaptcha.prototype, "_render");
         });
 
         afterEach(function () {
-          Recaptcha.prototype.renderWhenApiReady.restore();
-          Recaptcha.prototype.render.restore();
+          Recaptcha.prototype._renderWhenApiReady.restore();
+          Recaptcha.prototype._render.restore();
         });
 
-        it('should call window.grecaptcha.render with the correct options', function() {
-            myEl.render();
+        it('should call window.grecaptcha._render with the correct options', function() {
+            myEl._render();
             expect(grecaptchaMock.render.called).to.be.true;
         });
 
-        it('should call window.grecaptcha.render with the conatinerId as first arg', function() {
-          myEl.containerId="containerId";
-          myEl.render();
+        it('should call window.grecaptcha._render with the conatinerId as first arg', function() {
+          myEl._containerId="containerId";
+          myEl._render();
           var args = grecaptchaMock.render.args[0];
-          expect(args[0]).to.equal(myEl.containerId);
+          expect(args[0]).to.equal(myEl._containerId);
         });
 
-        it('should call window.grecaptcha.render with an option containing the sitekey', function() {
+        it('should call window.grecaptcha._render with an option containing the sitekey', function() {
           myEl.sitekey="sitekey";
-          myEl.render();
+          myEl._render();
           var args = grecaptchaMock.render.args[0];
           var options=args[1];
           expect(options.sitekey).to.equal(myEl.sitekey);
         });
 
-        it('should call window.grecaptcha.render with an option containing the theme', function() {
+        it('should call window.grecaptcha._render with an option containing the theme', function() {
           myEl.theme="theme";
-          myEl.render();
+          myEl._render();
           var args = grecaptchaMock.render.args[0];
           var options=args[1];
           expect(options.theme).to.equal(myEl.theme);
         });
 
-        it('should call window.grecaptcha.render with an option containing the type', function() {
+        it('should call window.grecaptcha._render with an option containing the type', function() {
           myEl.type="type";
-          myEl.render();
+          myEl._render();
           var args = grecaptchaMock.render.args[0];
           var options=args[1];
           expect(options.type).to.equal(myEl.type);
@@ -134,19 +134,19 @@
 
 
 
-        it('should store the widget id return by window.grecaptcha.render in captchaId', function() {
-          myEl.captchaId=null;
-          myEl.render();
-          expect(myEl.captchaId).to.equal(widgetId);
+        it('should store the widget id return by window.grecaptcha._render in _captchaId', function() {
+          myEl._captchaId=null;
+          myEl._render();
+          expect(myEl._captchaId).to.equal(widgetId);
         });
 
 
-        it('should fire a render event', function(done) {
+        it('should fire a captcha-rendered event', function(done) {
           myEl.addEventListener('captcha-rendered', function (event) {
             expect(event.detail).to.be.empty;
             done();
           });
-          myEl.render();
+          myEl._render();
         });
 
       });

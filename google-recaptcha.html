@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
 <!--
 Polymer element for Google reCAPTCHA
@@ -11,11 +10,11 @@ See https://developers.google.com/recaptcha
   <google-recaptcha sitekey="yoursitekey"></google-recaptcha>
   ```
 
-@element google-captcha
+@element google-recaptcha
 @blurb Element for Google reCAPTCHA
 @status alpha
 @homepage https://github.com/cbalit/re-captcha
-@demo demo.html
+@demo demo/index.html
 -->
 <dom-module id="google-recaptcha">
   <style>
@@ -23,16 +22,14 @@ See https://developers.google.com/recaptcha
       display: block;
     }
   </style>
-  <template>
-    <content></content>
-  </template>
+  <template><content></content></template>
 </dom-module>
 
 <script>
   Recaptcha = (function () {
     'use strict';
     var SCRIPT_LOADED=false;
-    Polymer({
+    return Polymer({
       is: 'google-recaptcha',
 
       _API_URL:'https://www.google.com/recaptcha/api.js',
@@ -44,10 +41,6 @@ See https://developers.google.com/recaptcha
       properties: {
         /**
          * The total time (in milliseconds) to wait for API loading
-         *
-         * @attribute timeout
-         * @type number
-         * @default 3000
          */
         timeout: {
           type: Number,
@@ -57,11 +50,6 @@ See https://developers.google.com/recaptcha
          * Your sitekey
          *
          * (Provided on registration -- see https://developers.google.com/recaptcha/docs/start)
-         *
-         * @attribute sitekey
-         * @type string
-         * @required
-         * @default ''
          */
         sitekey: {
           type: String,
@@ -69,10 +57,6 @@ See https://developers.google.com/recaptcha
         },
         /**
          * The color theme of the widget (`dark` or `light`)
-         *
-         * @attribute theme
-         * @type string
-         * @default 'light'
          */
         theme: {
           type: String,
@@ -80,10 +64,6 @@ See https://developers.google.com/recaptcha
         },
         /**
          * The type of reCaptcha to serve (`image` or `audio`)
-         *
-         * @attribute type
-         * @type string
-         * @default 'image'
          */
         type: {
           type: String,
@@ -93,10 +73,6 @@ See https://developers.google.com/recaptcha
          * The tabindex of the widget and challenge
          *
          * If other elements in your page use tabindex, this should be set to make user navigation easier.
-         *
-         * @attribute tabindex
-         * @type string
-         * @default 0
          */
         tabindex: {
           type: Number,
@@ -105,10 +81,6 @@ See https://developers.google.com/recaptcha
 
         /**
          * The response from the reCaptcha API
-         *
-         * @attribute response
-         * @type string
-         * @default ''
          */
         response: {
           type: String,
@@ -195,9 +167,7 @@ See https://developers.google.com/recaptcha
        * @event captcha-rendered
        */
       /**
-       * The `render` method renders the container as a reCaptcha widget and store the ID of the newly created widget.
-       *
-       * @method render
+       * The `_render` method renders the container as a reCaptcha widget and stores the ID of the newly created widget.
        */
       _render: function () {
         var _this=this;
@@ -214,8 +184,6 @@ See https://developers.google.com/recaptcha
       },
       /**
        * The `reset` method resets the reCaptcha widget.
-       *
-       * @method reset
        */
       reset: function () {
         window.grecaptcha.reset(this._captchaId);
@@ -223,7 +191,6 @@ See https://developers.google.com/recaptcha
       /**
        * The `getResponse` method gets the response for the reCaptcha widget.
        *
-       * @method getResponse
        * @return {String} Returns the response.
        */
       getResponse:function(){
@@ -260,8 +227,6 @@ See https://developers.google.com/recaptcha
 
       /**
        * The `expiredHandler` method fires the captcha-expired event.
-       *
-       *  @method expiredHandler
        */
       _expiredHandler: function () {
         this.fire('captcha-expired');

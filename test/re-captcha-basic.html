@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>re-captcha</title>
 
-  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
   <!-- Step 1: import the element to test -->
@@ -186,7 +186,7 @@
 
       describe('Events', function () {
         it('should save the response', function () {
-          myEl.responseHandler('response');
+          myEl._responseHandler('response');
           expect(myEl.response).to.equal('response');
         });
 
@@ -196,7 +196,7 @@
             expect(event.detail.response).to.equal('response');
             done();
           });
-          myEl.responseHandler('response');
+          myEl._responseHandler('response');
         });
 
       });

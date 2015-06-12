@@ -21,30 +21,30 @@
   describe('<google-recaptcha> LOADING', function () {
 
     afterEach(function () {
-      myEl.resetScriptLoaded();
+      myEl._resetScriptLoaded();
       document.body.removeChild(myEl);
       myEl = null;
     });
 
     describe('SCRIPT TAG', function () {
       beforeEach(function () {
-        sinon.spy(Recaptcha.prototype, "generateScriptApiTag");
+        sinon.spy(Recaptcha.prototype, "_generateScriptApiTag");
         myEl = Utils.createReCaptcha();
       });
 
       afterEach(function () {
-        Recaptcha.prototype.generateScriptApiTag.restore();
+        Recaptcha.prototype._generateScriptApiTag.restore();
       });
 
 
       it('should call generateScriptApiTag when creating the first instance', function () {
-        expect(Recaptcha.prototype.generateScriptApiTag.calledOnce).to.be.true;
+        expect(Recaptcha.prototype._generateScriptApiTag.calledOnce).to.be.true;
       });
 
 
       it('should not call generateScriptApiTag more the once', function () {
         myEl = Utils.createReCaptcha();
-        expect(Recaptcha.prototype.generateScriptApiTag.calledOnce).to.be.true;
+        expect(Recaptcha.prototype._generateScriptApiTag.calledOnce).to.be.true;
 
       });
 

@@ -145,7 +145,7 @@ describe('google-recaptcha BASIC JS', function () {
 
   describe('Events', function () {
     it('should save the response', function () {
-      myEl.responseHandler('response');
+      myEl._responseHandler('response');
       expect(myEl.response).to.equal('response');
     });
 
@@ -155,7 +155,7 @@ describe('google-recaptcha BASIC JS', function () {
         expect(event.detail.response).to.equal('response');
         done();
       });
-      myEl.responseHandler('response');
+      myEl._responseHandler('response');
     });
 
   });
