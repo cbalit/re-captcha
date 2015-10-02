@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>re-captcha Demo</title>
+  <style>
+    #eventMessage{
+      border-radius: 15px;
+      background-color: lightgray;
+      color: #0277BD;
+      padding: 15px;
+    }
+  </style>
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
+  <link rel="import" href="bower_components/iron-form/iron-form.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-card/paper-card.html">
+  <link rel="import" href="re-captcha.html">
+
+</head>
+<body>
+<p>An example of form using re-captcha</p>
+<template id="t" is="dom-bind">
+
+  <paper-card heading="Card Title">
+    <div class="card-content">
+      <form is="iron-form" id="form" method="post" action="/form/handler">
+        <paper-input name="name" label="name"></paper-input>
+        <paper-input name="name" label="firstname"></paper-input>
+        <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+      </form>
+    </div>
+    <div class="card-actions">
+      <paper-button id="submit" raised disabled="false">Valider</paper-button>
+    </div>
+  </paper-card>
+
+
+
+
+</template>
+
+<script>
+  var t = document.querySelector('#t');
+
+  // The dom-change event signifies when the template has stamped its DOM.
+  t.addEventListener('dom-change', function() {
+    // auto-binding template is ready.
+    var rec = document.querySelector('re-captcha');
+    var message = document.querySelector('#eventMessage');
+    var button= document.querySelector("#submit");
+    rec.addEventListener('captcha-response', function(e){
+      message.textContent = "CAPTCHA RESPONSE:" + e.detail.response;
+      button.disabled=false;
+    });
+  });
+
+
+</script>
+
+
+
+<p>Event message</p>
+<p id="eventMessage"></p>
+
+</body>
+</html>
