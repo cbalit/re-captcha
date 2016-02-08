@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "Mon formulaire"
+  },
+  "submit": {
+    "message": "valider"
+  },
+  "firstname": {
+  "message": "prénom"
+},
+  "lastname": {
+    "message": "nom"
+  }
+}

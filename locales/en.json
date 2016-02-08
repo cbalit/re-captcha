@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "My form"
+  },
+  "submit": {
+    "message": "send"
+  },
+  "firstname": {
+    "message": "firstname"
+  },
+  "lastname": {
+    "message": "lastname"
+  }
+}

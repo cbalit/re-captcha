@@ -14,7 +14,7 @@
 <body>
 
   <re-captcha id="default" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
-  <re-captcha id="custom" theme="dark" type="audio" timeout="1000" tabindex="5" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+  <re-captcha id="custom" lang="es" theme="dark" type="audio" timeout="1000" tabindex="5" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
   <re-captcha id="invalid" theme="foo" type="bar" timeout="notanumber" sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
 
   <script>
@@ -38,6 +38,7 @@
           expect(myEl.type).to.equal('image');
           expect(myEl.timeout).to.equal(3000);
           expect(myEl.tabindex).to.equal(0);
+          expect(myEl.lang).to.be.empty;
         });
 
         it('set properties', function () {
@@ -46,6 +47,7 @@
           expect(myEl.type).to.equal('audio');
           expect(myEl.timeout).to.equal(1000);
           expect(myEl.tabindex).to.equal(5);
+          expect(myEl.lang).to.equal('es');
         });
 
         it('should not throw an error if the sitekey is provided', function (done) {
