@@ -11,23 +11,23 @@
       padding: 15px;
     }
   </style>
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="bower_components/paper-input/paper-input.html">
-  <link rel="import" href="bower_components/iron-form/iron-form.html">
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/paper-card/paper-card.html">
-  <link rel="import" href="re-captcha.html">
+  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../iron-form/iron-form.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+  <link rel="import" href="../../paper-card/paper-card.html">
+  <link rel="import" href="../re-captcha.html">
 
 </head>
 <body>
-<p>An example of form using re-captcha</p>
+<h1>An example of form using re-captcha</h1>
+<p>This simple example show how to manage form valid state with a re-captcha element. Just listen to the <b>captcha-response</b> event to enable the form submit button</p>
 <template id="t" is="dom-bind">
-
-  <paper-card heading="Card Title">
+  <paper-card heading="My form">
     <div class="card-content">
       <form is="iron-form" id="form" method="post" action="/form/handler">
-        <paper-input name="name" label="name"></paper-input>
-        <paper-input name="name" label="firstname"></paper-input>
+        <paper-input name="lastname" label="lastname"></paper-input>
+        <paper-input name="firstname" label="firstname"></paper-input>
         <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
       </form>
     </div>
@@ -35,34 +35,21 @@
       <paper-button id="submit" raised disabled="false">Valider</paper-button>
     </div>
   </paper-card>
-
-
-
-
 </template>
 
 <script>
   var t = document.querySelector('#t');
-
   // The dom-change event signifies when the template has stamped its DOM.
   t.addEventListener('dom-change', function() {
     // auto-binding template is ready.
     var rec = document.querySelector('re-captcha');
-    var message = document.querySelector('#eventMessage');
     var button= document.querySelector("#submit");
     rec.addEventListener('captcha-response', function(e){
-      message.textContent = "CAPTCHA RESPONSE:" + e.detail.response;
       button.disabled=false;
     });
   });
 
 
 </script>
-
-
-
-<p>Event message</p>
-<p id="eventMessage"></p>
-
 </body>
 </html>

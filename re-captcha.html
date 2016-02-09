@@ -1,9 +1,9 @@
-<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 
 <!--
 Polymer element for Google reCAPTCHA
 
-See https://developers.google.com/recaptcha
+See https://github.com/cbalit/re-captcha
 
 ##### Example
   ```html
@@ -14,7 +14,7 @@ See https://developers.google.com/recaptcha
 @blurb Element for Google reCAPTCHA
 @status alpha
 @homepage https://github.com/cbalit/re-captcha
-@demo demo.html
+@demo demo/index.html
 -->
 <dom-module id="re-captcha">
     <style>
@@ -146,6 +146,12 @@ See https://developers.google.com/recaptcha
                 }
             },
 
+            /**
+             * The `removeCaptcha` method allow to remove widget and script.
+             *
+             * @method removeCaptcha
+             */
+
             removeCaptcha: function () {
                 //clean captcha flag
                 this._captchaId = "";
@@ -156,6 +162,12 @@ See https://developers.google.com/recaptcha
                 Polymer.dom(this).removeChild(this._container);
                 this._container = null;
             },
+
+            /**
+             * The `reload` method allow to reload captcha widget (after changing the lang property for example).
+             *
+             * @method reload
+             */
 
             reload: function () {
                 this.removeCaptcha();

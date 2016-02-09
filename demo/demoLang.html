@@ -12,19 +12,19 @@
       padding: 15px;
     }
   </style>
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="import" href="bower_components/paper-input/paper-input.html">
-  <link rel="import" href="bower_components/iron-form/iron-form.html">
-  <link rel="import" href="bower_components/paper-card/paper-card.html">
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/i18n-msg/i18n-msg.html">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../iron-form/iron-form.html">
+  <link rel="import" href="../../paper-card/paper-card.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+  <link rel="import" href="../../i18n-msg/i18n-msg.html">
 
-  <link rel="import" href="re-captcha.html">
+  <link rel="import" href="../re-captcha.html">
 
 </head>
 <body>
-  <p>An example of form using re-captcha</p>
-
+  <h1>An example of form using re-captcha and <a target="_blank" href="https://ebidel.github.io/i18n-msg/components/i18n-msg/">i18n-msg</a></h1>
+  <p>In this example we are listening to selector <b>change</b> event to set the recaptcha lang attribute and we just reload it.</p>
   <paper-card id="panel" heading="Card Title">
     <div class="card-content">
       <form is="iron-form" id="form" method="post" action="/form/handler">
