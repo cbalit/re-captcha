@@ -1,3 +1,4 @@
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
@@ -137,6 +138,14 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                 '_validate(theme, type, timeout)'
             ],
 
+            behaviors: [
+              Polymer.IronResizableBehavior
+            ],
+
+            listeners: {
+              'iron-resize': '_onIronResize'
+            },
+
             _validate: function () {
                 if (this.theme != 'dark' && this.theme != 'light') {
                     this.theme = 'light';
@@ -147,6 +156,17 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                 if (isNaN(this.timeout)) {
                     this.timeout = 3000;
                 }
+            },
+
+            _onIronResize: function() {
+              var crect = this._container.querySelector('div').getBoundingClientRect();
+              this.$$('#spanner').style.width = crect.width + 'px';
+              this.$$('#spanner').style.height = crect.height + 'px';
+              var srect = this.$$('#spanner').getBoundingClientRect();
+              //move container on top of spanner
+              this._container.style.position = 'absolute';
+              this._container.style.top = srect.top + 'px';
+              this._container.style.left = srect.left + 'px';
             },
 
             /**
@@ -269,14 +289,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                     callback: this._responseHandler.bind(this),
                     'expired-callback': this._expiredHandler.bind(this)
                 });
-                var crect = this._container.querySelector('div').getBoundingClientRect();
-                this.$$('#spanner').style.width = crect.width + 'px';
-                this.$$('#spanner').style.height = crect.height + 'px';
-                var srect = this.$$('#spanner').getBoundingClientRect();
-                //move container on top of spanner
-                this._container.style.position = 'absolute';
-                this._container.style.top = srect.top + 'px';
-                this._container.style.left = srect.left + 'px';
+                this.fire('iron-resize');
                 this.fire('captcha-rendered', null);
             },
             /**
