@@ -20,16 +20,16 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
 @demo demo/index.html
 -->
 <dom-module id="re-captcha">
+  <template>
     <style>
-        :host {
-            display: block;
-        }
+      :host {
+        display: block;
+      }
     </style>
-    <template>
-        <content></content>
-    </template>
+    <slot></slot>
+    <div id="spanner"></div>
+  </template>
 </dom-module>
-
 <script>
     Recaptcha = (function () {
         'use strict';
@@ -162,7 +162,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                 //Remove script
                 this._removeScriptApiTag();
                 //remove container
-                Polymer.dom(this).removeChild(this._container);
+                document.body.removeChild(this._container);
                 this._container = null;
             },
 
@@ -209,23 +209,25 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                 SCRIPT_LOADED = true;
             },
             attached: function () {
+              Polymer.RenderStatus.afterNextRender(this, function() {
                 if (this.sitekey === '') {
-                    throw new Error("sitekey attribute is mandatory for recaptcha element");
-                    return;
+                  throw new Error("sitekey attribute is mandatory for recaptcha element");
+                  return;
                 }
                 if (!SCRIPT_LOADED) {
-                    this._generateScriptApiTag();
+                  this._generateScriptApiTag();
                 }
                 if (!this.isWidgetLoaded()) {
-                    this._generateContainer();
-                    this._renderWhenApiReady();
+                  this._generateContainer();
+                  this._renderWhenApiReady();
                 }
+              });
             },
             _generateContainer: function () {
                 if (this._container === null) {
                     this._container = document.createElement('div');
                     //this.appendChild(this._container);
-                    Polymer.dom(this).appendChild(this._container);
+                    document.body.appendChild(this._container);
                 }
             },
             _renderWhenApiReady: function () {
@@ -267,6 +269,14 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
                     callback: this._responseHandler.bind(this),
                     'expired-callback': this._expiredHandler.bind(this)
                 });
+                var crect = this._container.querySelector('div').getBoundingClientRect();
+                this.$$('#spanner').style.width = crect.width + 'px';
+                this.$$('#spanner').style.height = crect.height + 'px';
+                var srect = this.$$('#spanner').getBoundingClientRect();
+                //move container on top of spanner
+                this._container.style.position = 'absolute';
+                this._container.style.top = srect.top + 'px';
+                this._container.style.left = srect.left + 'px';
                 this.fire('captcha-rendered', null);
             },
             /**
@@ -284,7 +294,12 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
              * @return {String} Returns the response.
              */
             getResponse: function () {
-                var resp = window.grecaptcha.getResponse(this._captchaId);
+                try {
+                   var resp = window.grecaptcha.getResponse(this._captchaId);
+                } catch(err) {
+                    console.error(err.message);
+                    return "";
+                }
                 return resp;
             },
             /**
