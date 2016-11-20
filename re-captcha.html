@@ -159,6 +159,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
             },
 
             _onIronResize: function() {
+              if(!this._container) return;
               var crect = this._container.querySelector('div').getBoundingClientRect();
               this.$$('#spanner').style.width = crect.width + 'px';
               this.$$('#spanner').style.height = crect.height + 'px';
