@@ -247,6 +247,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
             _generateContainer: function () {
                 if (this._container === null) {
                     this._container = document.createElement('div');
+                    this._container.className = "recaptcha-container"
                     //this.appendChild(this._container);
                     document.body.appendChild(this._container);
                 }
