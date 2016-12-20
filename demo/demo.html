@@ -11,11 +11,7 @@
       padding: 15px;
     }
   </style>
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="import" href="../../paper-input/paper-input.html">
-  <link rel="import" href="../../iron-form/iron-form.html">
-  <link rel="import" href="../../paper-card/paper-card.html">
-  <link rel="import" href="../../paper-button/paper-button.html">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
   <link rel="import" href="../re-captcha.html">
   <script type="text/javascript">
@@ -33,14 +29,6 @@
       rec.addEventListener('captcha-expired', function(e){
         message.textContent = "CAPTCHA EXPIRED";
       });
-
-
-      var button= document.querySelector("#submit");
-      var formcaptcha = document.querySelector('#captcha');
-      formcaptcha.addEventListener('captcha-response', function(e){
-        button.disabled=false;
-      });
-
     });
 
   </script>
