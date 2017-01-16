@@ -11,11 +11,10 @@
       padding: 15px;
     }
   </style>
-  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../paper-input/paper-input.html">
   <link rel="import" href="../../iron-form/iron-form.html">
   <link rel="import" href="../../paper-button/paper-button.html">
-  <link rel="import" href="../../paper-card/paper-card.html">
   <link rel="import" href="../re-captcha.html">
 
 </head>
@@ -23,7 +22,6 @@
 <h1>An example of form using re-captcha</h1>
 <p>This simple example show how to manage form valid state with a re-captcha element. Just listen to the <b>captcha-response</b> event to enable the form submit button</p>
 <template id="t" is="dom-bind">
-  <paper-card heading="My form">
     <div class="card-content">
       <form is="iron-form" id="form" method="post" action="/form/handler">
         <paper-input name="lastname" label="lastname"></paper-input>
@@ -34,7 +32,6 @@
     <div class="card-actions">
       <paper-button id="submit" raised disabled="false">Valider</paper-button>
     </div>
-  </paper-card>
 </template>
 
 <script>
