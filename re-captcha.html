@@ -160,14 +160,13 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
 
             _onIronResize: function() {
               if(!this._container) return;
-              var crect = this._container.querySelector('div').getBoundingClientRect();
+              var containerRect = this._container.querySelector('div').getBoundingClientRect();
               this.$$('#spanner').style.width = crect.width + 'px';
               this.$$('#spanner').style.height = crect.height + 'px';
-              var srect = this.$$('#spanner').getBoundingClientRect();
               //move container on top of spanner
               this._container.style.position = 'absolute';
-              this._container.style.top = srect.top + 'px';
-              this._container.style.left = srect.left + 'px';
+              this._container.style.top = this.root.host.offsetTop + 'px';
+              this._container.style.left = this.root.host.offsetLeft + 'px';
             },
 
             /**
@@ -233,7 +232,6 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
               Polymer.RenderStatus.afterNextRender(this, function() {
                 if (this.sitekey === '') {
                   throw new Error("sitekey attribute is mandatory for recaptcha element");
-                  return;
                 }
                 if (!SCRIPT_LOADED) {
                   this._generateScriptApiTag();
