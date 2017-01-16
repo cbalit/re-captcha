@@ -161,8 +161,8 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
             _onIronResize: function() {
               if(!this._container) return;
               var containerRect = this._container.querySelector('div').getBoundingClientRect();
-              this.$$('#spanner').style.width = crect.width + 'px';
-              this.$$('#spanner').style.height = crect.height + 'px';
+              this.$$('#spanner').style.width = containerRect.width + 'px';
+              this.$$('#spanner').style.height = containerRect.height + 'px';
               //move container on top of spanner
               this._container.style.position = 'absolute';
               this._container.style.top = this.root.host.offsetTop + 'px';
