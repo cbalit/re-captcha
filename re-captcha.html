@@ -197,10 +197,10 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
         //Remove script
         this._removeScriptApiTag();
         //remove container
-        if(this.inbody){
+        if (this.inbody) {
           document.body.removeChild(this._container);
         }
-        else{
+        else {
           Polymer.dom(this).removeChild(this._container);
         }
         this._container = null;
@@ -234,19 +234,30 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
       _generateScriptApiTag: function () {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
-        script.setAttribute('async', '');
-        script.setAttribute('id', 'captcha');
-        script.setAttribute('defer', '');
-        script.setAttribute('type', 'text/javascript');
-        script.setAttribute('src', this._API_URL);
-        if (!this.lang) {
+
+        // let's prevent loading the script if the browser is offline
+        if ('navigator' in window && 'onLine' in window.navigator && window.navigator.onLine) {
+          script.setAttribute('async', '');
+          script.setAttribute('id', 'captcha');
+          script.setAttribute('defer', '');
+          script.setAttribute('type', 'text/javascript');
           script.setAttribute('src', this._API_URL);
+          if (!this.lang) {
+            script.setAttribute('src', this._API_URL);
+          }
+          else {
+            script.setAttribute('src', this._API_URL + '?hl=' + this.lang);
+          }
+          head.appendChild(script);
+          SCRIPT_LOADED = true;
+        } else {
+          console.warn('recaptcha not loaded because browser appears to be offline');
+          window.addEventListener('online', function () {
+            if (!SCRIPT_LOADED) {
+              this._generateScriptApiTag();
+            }
+          }.bind(this));
         }
-        else {
-          script.setAttribute('src', this._API_URL + '?hl=' + this.lang);
-        }
-        head.appendChild(script);
-        SCRIPT_LOADED = true;
       },
       attached: function () {
         if (this.sitekey === '') {
@@ -264,10 +275,10 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
       _generateContainer: function () {
         if (this._container === null) {
           this._container = document.createElement('div');
-          if(this.inbody){
+          if (this.inbody) {
             document.body.appendChild(this._container);
           }
-          else{
+          else {
             Polymer.dom(this).appendChild(this._container);
           }
         }
@@ -311,7 +322,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
           callback: this._responseHandler.bind(this),
           'expired-callback': this._expiredHandler.bind(this)
         });
-        if(this.inbody){
+        if (this.inbody) {
           this.fire('iron-resize');
         }
         this.fire('captcha-rendered', null);
@@ -352,7 +363,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
        */
       _responseHandler: function (response) {
         this.response = response;
-        this.fire('captcha-response', {response: response});
+        this.fire('captcha-response', { response: response });
       },
 
       /**
@@ -382,4 +393,5 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
     });
     return constructor;
   })();
+
 </script>
