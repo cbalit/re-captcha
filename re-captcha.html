@@ -284,7 +284,7 @@ BEWARE: THE re-captcha ELEMENT ONLY WORKS IN THE DOM OR LIGHT DOM OF ANOTHER COM
         }
       },
       _renderWhenApiReady: function () {
-        if (!window.grecaptcha) {
+        if (!window.grecaptcha || typeof window.grecaptcha.render !== "function") {
           //Check if we can try again according to timeout
           if (this._delay < this.timeout) {
             setTimeout(function () {
