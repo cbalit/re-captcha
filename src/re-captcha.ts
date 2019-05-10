@@ -1,5 +1,4 @@
 import { customElement, html, LitElement, property } from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 
 const DEFAULT_TIMEOUT = 3000;
 const DEFAULT_TYPE = "image";
@@ -9,7 +8,7 @@ const DEFAULT_LANG = "";
 
 let RECAPTCHA_LOADED = false;
 
-const injectReCaptcha = (apiUrl: string, opts: any) => {
+const loadReCaptcha = async (apiUrl: string, opts: any) => {
   const head = document.getElementsByTagName("head")[0];
   const script = document.createElement("script");
 
@@ -28,26 +27,24 @@ const injectReCaptcha = (apiUrl: string, opts: any) => {
 
     head.appendChild(script);
 
-    RECAPTCHA_LOADED = true;
+    await new Promise(resolve => {
+      script.onload = () => {
+        RECAPTCHA_LOADED = true;
+        resolve();
+      };
+    });
+
+    await new Promise(resolve => grecaptcha.ready(() => resolve()));
   } else {
-    window.addEventListener("online", () => {
-      if (!RECAPTCHA_LOADED) {
-        injectReCaptcha(apiUrl, opts);
-      }
+    await new Promise(resolve => {
+      window.addEventListener("online", () => {
+        if (!RECAPTCHA_LOADED) {
+          resolve(loadReCaptcha(apiUrl, opts));
+        }
+      });
     });
   }
 };
-
-const waitRecaptcha = async () =>
-  new Promise(resolve =>
-    setTimeout(() => {
-      if (!grecaptcha) {
-        waitRecaptcha();
-      } else {
-        resolve();
-      }
-    }, 3000)
-  );
 
 const isNavigatorOnline = () =>
   "navigator" in window &&
@@ -112,20 +109,11 @@ export class ReCaptchaComponent extends LitElement {
   private captchaContainer = null;
 
   public async connectedCallback() {
-    if (!RECAPTCHA_LOADED) {
-      injectReCaptcha(this.RECAPTCHA_API_URL, { lang: this.lang });
-    }
+    await loadReCaptcha(this.RECAPTCHA_API_URL, { lang: this.lang });
 
-    await waitRecaptcha();
-
-    // Await reCaptcha to load
-    await new Promise(resolve => grecaptcha.ready(() => resolve()));
-
-    // Create a drop zone for reCaptcha render
     this.captchaContainer = document.createElement("div");
     this.captchaContainer.setAttribute("id", "g-recaptcha");
 
-    // Render reCaptcha
     this.captchaId = await grecaptcha.render(this.captchaContainer, {
       callback: this._responseHandler.bind(this),
       "expired-callback": this._expiredHandler.bind(this),
@@ -156,12 +144,6 @@ export class ReCaptchaComponent extends LitElement {
 
   public render() {
     return html`
-      <script
-        src="https://www.google.com/recaptcha/api.js?hl=${this.lang}"
-        async
-        defer
-      ></script>
-
       ${this.captchaContainer}
     `;
   }
