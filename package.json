@@ -1,0 +1,48 @@
+{
+  "name": "re-captcha",
+  "version": "0.1.0",
+  "description": "reCaptcha web component built using LitElement",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfeir-open-source/re-captcha.git"
+  },
+  "keywords": [
+    "web-component",
+    "litelement",
+    "web",
+    "browser"
+  ],
+  "authors": [
+    "Cyril Balit <cbalit@gmail.com>",
+    "Tobi Seitz <tobi@tobitobi.de>",
+    "Phetsinorath William <phetsinorath.william@hotmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sfeir-open-source/re-captcha/issues"
+  },
+  "homepage": "https://github.com/sfeir-open-source/re-captcha#readme",
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "lit-element": "^2.1.0",
+    "tslib": "^1.9.3"
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.3",
+    "prettier": "1.17.0",
+    "ts-node": "8.1.0",
+    "tslint": "5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "3.4.5"
+  }
+}

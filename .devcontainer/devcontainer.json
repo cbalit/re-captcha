@@ -1,0 +1,13 @@
+{
+  "name": "Node.js (latest LTS) & TypeScript",
+  "dockerFile": "Dockerfile",
+  "extensions": [
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "ms-vscode.typescript-javascript-grammar",
+    "rbbit.typescript-hero",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig"
+  ],
+  "appPort": [8081],
+  "postCreateCommand": ["yarn install"]
+}
