@@ -1,18 +1,66 @@
 import { customElement, html, LitElement, property } from "lit-element";
+import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 
-declare var grecaptcha: ReCaptcha;
+const DEFAULT_TIMEOUT = 3000;
+const DEFAULT_TYPE = "image";
+const DEFAULT_THEME = "light";
+const DEFAULT_TABLEINDEX = 0;
+const DEFAULT_LANG = "";
 
-interface ReCaptcha {
-  [key: string]: any;
-}
+let RECAPTCHA_LOADED = false;
+
+const injectReCaptcha = (apiUrl: string, opts: any) => {
+  const head = document.getElementsByTagName("head")[0];
+  const script = document.createElement("script");
+
+  if (isNavigatorOnline()) {
+    script.setAttribute("defer", "");
+    script.setAttribute("async", "");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", apiUrl);
+
+    if (!opts.lang) {
+      script.setAttribute("src", apiUrl);
+    } else {
+      script.setAttribute("src", apiUrl + "?hl=" + opts.lang);
+    }
+
+    head.appendChild(script);
+
+    RECAPTCHA_LOADED = true;
+  } else {
+    window.addEventListener("online", () => {
+      if (!RECAPTCHA_LOADED) {
+        injectReCaptcha(apiUrl, opts);
+      }
+    });
+  }
+};
+
+const waitRecaptcha = async () =>
+  new Promise(resolve =>
+    setTimeout(() => {
+      if (!grecaptcha) {
+        waitRecaptcha();
+      } else {
+        resolve();
+      }
+    }, 3000)
+  );
+
+const isNavigatorOnline = () =>
+  "navigator" in window &&
+  "onLine" in window.navigator &&
+  window.navigator.onLine;
 
 @customElement("re-captcha")
-export class MyElement extends LitElement {
+export class ReCaptchaComponent extends LitElement {
   /**
    * The total time (in milliseconds) to wait for API loading
    */
   @property({ type: Number })
-  public timeout = 3000;
+  public timeout = DEFAULT_TIMEOUT;
 
   /**
    * Your sitekey
@@ -26,13 +74,13 @@ export class MyElement extends LitElement {
    * The color theme of the widget (`dark` or `light`)
    */
   @property({ type: String })
-  public theme = "light";
+  public theme = DEFAULT_THEME;
 
   /**
    * The type of reCaptcha to serve (`image` or `audio`)
    */
   @property({ type: String })
-  public type = "image";
+  public type = DEFAULT_TYPE;
 
   /**
    * The tabindex of the widget and challenge
@@ -40,29 +88,45 @@ export class MyElement extends LitElement {
    * If other elements in your page use tabindex, this should be set to make user navigation easier.
    */
   @property({ type: Number })
-  public tabindex = 0;
+  public tabindex = DEFAULT_TABLEINDEX;
 
   /**
    * The lang attribute
    */
   @property({ type: String })
-  public lang = "";
+  public lang = DEFAULT_LANG;
+
+  /**
+   * reCaptcha API URL
+   */
+  public RECAPTCHA_API_URL = "https://www.google.com/recaptcha/api.js";
 
   /**
    * Current Captcha session ID
    */
-  private _captchaId;
+  private captchaId = "";
+
+  /**
+   * Captcha container
+   */
+  private captchaContainer = null;
 
   public async connectedCallback() {
+    if (!RECAPTCHA_LOADED) {
+      injectReCaptcha(this.RECAPTCHA_API_URL, { lang: this.lang });
+    }
+
+    await waitRecaptcha();
+
     // Await reCaptcha to load
     await new Promise(resolve => grecaptcha.ready(() => resolve()));
 
     // Create a drop zone for reCaptcha render
-    const element = document.createElement("div");
-    element.setAttribute("id", "g-recaptcha");
+    this.captchaContainer = document.createElement("div");
+    this.captchaContainer.setAttribute("id", "g-recaptcha");
 
     // Render reCaptcha
-    this._captchaId = await grecaptcha.render(element, {
+    this.captchaId = await grecaptcha.render(this.captchaContainer, {
       callback: this._responseHandler.bind(this),
       "expired-callback": this._expiredHandler.bind(this),
       sitekey: this.sitekey,
@@ -71,22 +135,49 @@ export class MyElement extends LitElement {
       type: this.type
     });
 
-    // Append drop zone
-    this.shadowRoot.appendChild(element);
+    super.connectedCallback();
+  }
+
+  public attributeChangedCallback(name, oldval, newval) {
+    if (this.theme !== "dark" && this.theme !== "light") {
+      this.theme = DEFAULT_THEME;
+    }
+
+    if (this.type !== "audio" && this.type !== "image") {
+      this.type = DEFAULT_TYPE;
+    }
+
+    if (isNaN(this.timeout)) {
+      this.timeout = DEFAULT_TIMEOUT;
+    }
+
+    super.attributeChangedCallback(name, oldval, newval);
+  }
+
+  public render() {
+    return html`
+      <script
+        src="https://www.google.com/recaptcha/api.js?hl=${this.lang}"
+        async
+        defer
+      ></script>
+
+      ${this.captchaContainer}
+    `;
   }
 
   /**
    * The `reset` method resets the reCaptcha widget.
    */
   public reset() {
-    grecaptcha.reset(this._captchaId);
+    grecaptcha.reset(this.captchaId);
   }
 
   /**
    * The `response` method gets the response for the reCaptcha widget.
    */
   public get response() {
-    return grecaptcha.getResponse(this._captchaId);
+    return grecaptcha.getResponse(this.captchaId);
   }
 
   /**
