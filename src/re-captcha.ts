@@ -11,7 +11,7 @@ export class MyElement extends LitElement {
   /**
    * Your sitekey
    *
-   * (Provided on registration -- see https://developers.google.com/recaptcha/docs/start)
+   * (Provided on registration -- see https://developers.google.com/recaptcha/intro)
    */
   @property({ type: String })
   public sitekey = "";
