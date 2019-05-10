@@ -1,2 +1,30 @@
-bower_components
-.idea
+*
+
+# Meta configurations
+!.gitignore
+!.editorconfig
+
+# Development environment
+!.devcontainer/
+!.devcontainer/Dockerfile
+!.devcontainer/*.json
+!.vscode/
+!.vscode/*.json
+
+# Documentations
+!CODE_OF_CONDUCT.md
+!CONTRIBUTING.md
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+# Node and TypeScript configurations
+!/package.json
+!/yarn.lock
+!/tsconfig.json
+!/tslint.json
+
+# Application sources
+!/index.html
+!/src
+!/src/**/*.ts
