@@ -1,5 +1,11 @@
 import { customElement, html, LitElement, property } from "lit-element";
 
+declare var grecaptcha: ReCaptcha;
+
+interface ReCaptcha {
+  [key: string]: any;
+}
+
 @customElement("re-captcha")
 export class MyElement extends LitElement {
   /**
@@ -14,7 +20,7 @@ export class MyElement extends LitElement {
    * (Provided on registration -- see https://developers.google.com/recaptcha/intro)
    */
   @property({ type: String })
-  public sitekey = "";
+  public sitekey = "test";
 
   /**
    * The color theme of the widget (`dark` or `light`)
@@ -37,27 +43,68 @@ export class MyElement extends LitElement {
   public tabindex = 0;
 
   /**
-   * The response from the reCaptcha API
-   */
-  @property({ type: String })
-  public response = "";
-
-  /**
    * The lang attribute
    */
   @property({ type: String })
   public lang = "";
 
   /**
-   * Experimental flag to insert the captcha in the body. This will allow to use the captcha in the dom of another component
-   * but the captcha (UI) doesn't belong anymore to the component so hiding or moving the recaptcha doesn't affect the ui
+   * Current Captcha session ID
    */
-  @property({ type: Boolean })
-  public inbody = false;
+  private _captchaId;
 
-  public render() {
-    return html`
-      hello re-captcha
-    `;
+  public async connectedCallback() {
+    // Await reCaptcha to load
+    await new Promise(resolve => grecaptcha.ready(() => resolve()));
+
+    // Create a drop zone for reCaptcha render
+    const element = document.createElement("div");
+    element.setAttribute("id", "g-recaptcha");
+
+    // Render reCaptcha
+    this._captchaId = await grecaptcha.render(element, {
+      callback: this._responseHandler.bind(this),
+      "expired-callback": this._expiredHandler.bind(this),
+      sitekey: this.sitekey,
+      tabindex: this.tabindex,
+      theme: this.theme,
+      type: this.type
+    });
+
+    // Append drop zone
+    this.shadowRoot.appendChild(element);
+  }
+
+  /**
+   * The `reset` method resets the reCaptcha widget.
+   */
+  public reset() {
+    grecaptcha.reset(this._captchaId);
+  }
+
+  /**
+   * The `response` method gets the response for the reCaptcha widget.
+   */
+  public get response() {
+    return grecaptcha.getResponse(this._captchaId);
+  }
+
+  /**
+   * The `responseHandler` method will store the response and fire the captcha-response. At least
+   * it will dispatch a captcha-response event with the response
+   */
+  private _responseHandler(response) {
+    this.dispatchEvent(
+      new CustomEvent("captcha-response", { detail: response })
+    );
+  }
+
+  /**
+   * The `expiredHandler` method fires the captcha-expired event.
+   *
+   *  @method expiredHandler
+   */
+  private _expiredHandler() {
+    this.dispatchEvent(new CustomEvent("captcha-expired"));
   }
 }
