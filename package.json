@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/sfeir-open-source/re-captcha#readme",
   "dependencies": {
+    "@types/grecaptcha": "^2.0.36",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "lit-element": "^2.1.0",
     "tslib": "^1.9.3"
