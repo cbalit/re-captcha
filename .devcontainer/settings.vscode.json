@@ -2,7 +2,6 @@
   "remote.extensionKind": {
     "esbenp.prettier-vscode": "workspace",
     "rbbit.typescript-hero": "workspace",
-    "ms-vscode.vscode-typescript-tslint-plugin": "workspace",
     "ms-vscode.typescript-javascript-grammar": "workspace",
     "editorconfig.editorconfig": "workspace"
   }
