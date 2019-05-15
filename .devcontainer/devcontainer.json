@@ -8,5 +8,5 @@
     "editorconfig.editorconfig"
   ],
   "appPort": [1234],
-  "postCreateCommand": ["yarn install"]
+  "postCreateCommand": "yarn install"
 }
