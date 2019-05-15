@@ -56,8 +56,7 @@ const loadReCaptcha = async (apiUrl: string, opts: LoadCaptchaOptions) => {
       grecaptcha.ready(() => {
         resolve();
       });
-    }
-    );
+    });
   } else {
     await new Promise(resolve => {
       window.addEventListener("online", () => {
