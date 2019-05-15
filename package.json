@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest"
+    "lint": "eslint src/**"
   },
   "repository": {
     "type": "git",
@@ -29,21 +29,24 @@
   },
   "homepage": "https://github.com/sfeir-open-source/re-captcha#readme",
   "dependencies": {
-    "@types/grecaptcha": "^2.0.36",
     "@webcomponents/webcomponentsjs": "^2.2.10",
-    "lit-element": "^2.1.0",
-    "tslib": "^1.9.3"
+    "lit-element": "^2.1.0"
   },
   "browserslist": [
     "last 1 chrome versions"
   ],
   "devDependencies": {
-    "jest": "^24.8.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "parcel-bundler": "^1.12.3",
     "prettier": "1.17.0",
-    "ts-node": "8.1.0",
-    "tslint": "5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "3.4.5"
+    "typescript": "^3.4.5"
   }
 }
