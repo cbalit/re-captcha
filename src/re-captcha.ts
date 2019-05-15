@@ -6,9 +6,27 @@ const DEFAULT_THEME = "light";
 const DEFAULT_TABLEINDEX = 0;
 const DEFAULT_LANG = "";
 
+/**
+ * State of the re-captcha script tag
+ */
 let RECAPTCHA_LOADED = false;
 
-const loadReCaptcha = async (apiUrl: string, opts: any) => {
+/**
+ * Detect browser connectivity
+ */
+const isNavigatorOnline = () =>
+  "navigator" in window &&
+  "onLine" in window.navigator &&
+  window.navigator.onLine;
+
+interface LoadCaptchaOptions {
+  lang: string;
+}
+
+/**
+ * Inject re-captcha script tag in the header
+ */
+const loadReCaptcha = async (apiUrl: string, opts: LoadCaptchaOptions) => {
   const head = document.getElementsByTagName("head")[0];
   const script = document.createElement("script");
 
@@ -34,7 +52,12 @@ const loadReCaptcha = async (apiUrl: string, opts: any) => {
       };
     });
 
-    await new Promise(resolve => grecaptcha.ready(() => resolve()));
+    await new Promise(resolve => {
+      grecaptcha.ready(() => {
+        resolve();
+      });
+    }
+    );
   } else {
     await new Promise(resolve => {
       window.addEventListener("online", () => {
@@ -46,10 +69,18 @@ const loadReCaptcha = async (apiUrl: string, opts: any) => {
   }
 };
 
-const isNavigatorOnline = () =>
-  "navigator" in window &&
-  "onLine" in window.navigator &&
-  window.navigator.onLine;
+/**
+ * Remove re-captcha script tag from the header
+ */
+const unloadReCaptcha = () => {
+  const script = document.querySelector("script#captcha");
+  const head = document.getElementsByTagName("head")[0];
+
+  if (script) {
+    head.removeChild(script);
+    RECAPTCHA_LOADED = false;
+  }
+};
 
 @customElement("re-captcha")
 export class ReCaptchaComponent extends LitElement {
@@ -101,12 +132,12 @@ export class ReCaptchaComponent extends LitElement {
   /**
    * Current Captcha session ID
    */
-  private captchaId = "";
+  private captchaId: string = "";
 
   /**
    * Captcha container
    */
-  private captchaContainer = null;
+  private captchaContainer: HTMLDivElement = null;
 
   public async connectedCallback() {
     await loadReCaptcha(this.RECAPTCHA_API_URL, { lang: this.lang });
@@ -140,6 +171,12 @@ export class ReCaptchaComponent extends LitElement {
     }
 
     super.attributeChangedCallback(name, oldval, newval);
+  }
+
+  public async disconnectedCallback() {
+    unloadReCaptcha();
+
+    super.disconnectedCallback();
   }
 
   public render() {
