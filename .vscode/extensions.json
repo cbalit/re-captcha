@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "ms-vscode-remote.vscode-remote-extensionpack",
-    "ms-vscode.vscode-typescript-tslint-plugin",
     "msjsdiag.debugger-for-chrome"
   ]
 }

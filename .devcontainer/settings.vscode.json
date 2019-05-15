@@ -1,8 +1,35 @@
 {
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "autoFix": true,
+      "language": "typescript"
+    },
+    {
+      "autoFix": true,
+      "language": "typescriptreact"
+    }
+  ],
   "remote.extensionKind": {
+    "dbaeumer.vscode-eslint": "workspace",
+    "editorconfig.editorconfig": "workspace",
     "esbenp.prettier-vscode": "workspace",
-    "rbbit.typescript-hero": "workspace",
     "ms-vscode.typescript-javascript-grammar": "workspace",
-    "editorconfig.editorconfig": "workspace"
+    "rbbit.typescript-hero": "workspace"
   }
 }
