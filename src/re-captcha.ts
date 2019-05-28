@@ -34,7 +34,6 @@ const loadReCaptcha = async (apiUrl: string, opts: LoadCaptchaOptions) => {
     script.setAttribute("defer", "");
     script.setAttribute("async", "");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("type", "text/javascript");
     script.setAttribute("src", apiUrl);
 
     if (!opts.lang) {
