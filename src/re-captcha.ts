@@ -59,11 +59,14 @@ const loadReCaptcha = async (apiUrl: string, opts: LoadCaptchaOptions) => {
     });
   } else {
     await new Promise(resolve => {
-      window.addEventListener("online", () => {
+      const listener = () => {
         if (!RECAPTCHA_LOADED) {
           resolve(loadReCaptcha(apiUrl, opts));
         }
-      });
+      };
+
+      window.addEventListener("online", listener);
+      window.removeEventListener("online", listener);
     });
   }
 };
