@@ -1,30 +1,39 @@
 *
 
 # Meta configurations
-!.gitignore
-!.editorconfig
+!/.gitignore
+!/.editorconfig
 
 # Development environment
-!.devcontainer/
-!.devcontainer/Dockerfile
-!.devcontainer/*.json
-!.vscode/
-!.vscode/*.json
+!/.devcontainer/
+!/.devcontainer/Dockerfile
+!/.devcontainer/*.json
+!/.vscode/
+!/.vscode/*.json
 
 # Documentations
-!CODE_OF_CONDUCT.md
-!CONTRIBUTING.md
-!README.md
-!CHANGELOG.md
-!LICENSE
+!/CODE_OF_CONDUCT.md
+!/CONTRIBUTING.md
+!/README.md
+!/CHANGELOG.md
+!/LICENSE
 
 # Node and TypeScript configurations
 !/package.json
 !/yarn.lock
 !/tsconfig.json
 !/tslint.json
+!/cypress.json
+!/.eslintrc.js
+!/.babelrc.js
 
 # Application sources
 !/index.html
 !/src
 !/src/**/*.ts
+
+# Tests
+!/e2e/
+!/e2e/**/
+!/e2e/**/*.ts
+!/e2e/**/*.js

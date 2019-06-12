@@ -2,16 +2,24 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
-    "module": "esnext",
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
     "target": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"]
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "cypress"
+    ]
   }
 }
