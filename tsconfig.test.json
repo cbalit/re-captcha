@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -10,6 +12,7 @@
       "dom"
     ],
     "skipLibCheck": true,
+    "allowJs": true,
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,

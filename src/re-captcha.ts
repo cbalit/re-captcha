@@ -129,7 +129,7 @@ export class ReCaptcha extends LitElement {
   /**
    * The `response` method gets the response for the reCaptcha widget.
    */
-  public get response() {
+  public getResponse() {
     return window["grecaptcha"].getResponse(this.captchaId);
   }
 

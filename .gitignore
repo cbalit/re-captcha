@@ -1,6 +1,8 @@
 *
 
 # Meta configurations
+!/babel.config.js
+!/jest.config.js
 !/.gitignore
 !/.prettierignore
 !/.eslintignore
@@ -24,10 +26,8 @@
 !/package.json
 !/yarn.lock
 !/tsconfig.json
-!/tslint.json
-!/cypress.json
+!/tsconfig.test.json
 !/.eslintrc.js
-!/.babelrc.js
 
 # Application sources
 !/index.html
@@ -35,7 +35,6 @@
 !/src/**/*.ts
 
 # Tests
-!/test/
-!/test/**/
-!/test/**/*.ts
-!/test/**/*.js
+!/tests/
+!/tests/**/
+!/tests/**/*.ts
