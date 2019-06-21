@@ -233,7 +233,7 @@ export class ReCaptcha extends LitElement {
       theme: this.theme,
       type: this.type
     });
-    this.appendChild(elm);
+    this.appendChild(elm.children[0]);
   }
 
   /**
