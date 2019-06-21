@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="/node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
     <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script type="module" src="src/re-captcha.ts"></script>
-
-    <title>reCaptcha Test Runner</title>
+    <title>re-captcha</title>
   </head>
   <body>
-    <re-captcha theme="dark" />
+    <re-captcha
+      id="default"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+    <re-captcha
+      id="custom"
+      lang="es"
+      theme="dark"
+      type="audio"
+      timeout="1000"
+      tabindex="5"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+    <re-captcha
+      id="invalid"
+      theme="foo"
+      type="bar"
+      timeout="notanumber"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+    <script type="module" src="src/re-captcha.ts"></script>
   </body>
 </html>
