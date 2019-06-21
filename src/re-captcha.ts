@@ -1,12 +1,12 @@
 import { customElement, LitElement, property } from "lit-element";
 
 @customElement("re-captcha")
-export class ReCaptchaComponent extends LitElement {
+export class ReCaptcha extends LitElement {
   /**
    * The total time (in milliseconds) to wait for API loading
    */
   @property({ type: Number })
-  timeout = 3000;
+  public timeout = 3000;
 
   /**
    * Your sitekey
@@ -14,19 +14,19 @@ export class ReCaptchaComponent extends LitElement {
    * (Provided on registration -- see https://developers.google.com/recaptcha/intro)
    */
   @property({ type: String })
-  sitekey = "test";
+  public sitekey = "test";
 
   /**
    * The color theme of the widget (`dark` or `light`)
    */
   @property({ type: String })
-  theme = "light";
+  public theme = "light";
 
   /**
    * The type of reCaptcha to serve (`image` or `audio`)
    */
   @property({ type: String })
-  type = "image";
+  public type = "image";
 
   /**
    * The tabindex of the widget and challenge
@@ -34,18 +34,19 @@ export class ReCaptchaComponent extends LitElement {
    * If other elements in your page use tabindex, this should be set to make user navigation easier.
    */
   @property({ type: Number })
-  tabindex = 0;
+  public tabindex = 0;
 
   /**
    * The language attribute
    */
   @property({ type: String })
-  language = "";
+  public language = "";
 
   /**
    * reCaptcha API URL
    */
-  RECAPTCHA_API_URL = "https://www.google.com/recaptcha/api.js";
+  @property({ type: String })
+  public href = "https://www.google.com/recaptcha/api.js";
 
   /**
    * Current Captcha session ID
@@ -54,13 +55,17 @@ export class ReCaptchaComponent extends LitElement {
 
   // Behaviour implementation
 
-  async connectedCallback() {
+  public async connectedCallback() {
     await this.loadReCaptcha();
     await this.loadCaptchaContainer();
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name: string, oldval: string, newval: string) {
+  public attributeChangedCallback(
+    name: string,
+    oldval: string,
+    newval: string
+  ) {
     switch (name) {
       case "type":
         if (newval !== "audio" && newval !== "image") {
@@ -83,9 +88,15 @@ export class ReCaptchaComponent extends LitElement {
         break;
 
       case "timeout":
-        if (Number.isFinite(Number(newval))) {
+        const timeout = Number(newval);
+        if (!Number.isFinite(timeout)) {
           throw new TypeError("property 'timeout' must be of type number");
         }
+        this.timeout = timeout;
+        break;
+
+      case "href":
+        this.href = new URL(newval).href;
         break;
 
       default:
@@ -94,11 +105,14 @@ export class ReCaptchaComponent extends LitElement {
     super.attributeChangedCallback(name, oldval, newval);
   }
 
-  async disconnectedCallback() {
+  public async disconnectedCallback() {
     this.maybeUnloadReCaptcha();
     super.disconnectedCallback();
   }
 
+  /**
+   * Fix for the iframe shadowDOM
+   */
   protected createRenderRoot() {
     return this;
   }
@@ -108,15 +122,15 @@ export class ReCaptchaComponent extends LitElement {
   /**
    * The `reset` method resets the reCaptcha widget.
    */
-  reset() {
-    grecaptcha.reset(this.captchaId);
+  public reset() {
+    window["grecaptcha"].reset(this.captchaId);
   }
 
   /**
    * The `response` method gets the response for the reCaptcha widget.
    */
-  get response() {
-    return grecaptcha.getResponse(this.captchaId);
+  public get response() {
+    return window["grecaptcha"].getResponse(this.captchaId);
   }
 
   // Helpers
@@ -139,9 +153,9 @@ export class ReCaptchaComponent extends LitElement {
 
   private buildReCaptchaURL() {
     if (!this.language) {
-      return this.RECAPTCHA_API_URL;
+      return this.href;
     } else {
-      return `${this.RECAPTCHA_API_URL}?hl=${this.language}`;
+      return `${this.href}?hl=${this.language}`;
     }
   }
 
@@ -163,8 +177,8 @@ export class ReCaptchaComponent extends LitElement {
   private isNavigatorOnline() {
     return (
       "navigator" in window &&
-      "onLine" in (window as any).navigator &&
-      (window as any).navigator.onLine
+      "onLine" in window.navigator &&
+      window.navigator.onLine
     );
   }
 
@@ -185,7 +199,7 @@ export class ReCaptchaComponent extends LitElement {
    */
   private async waitReCaptchaLoad() {
     await new Promise(resolve => {
-      grecaptcha.ready(() => {
+      window["grecaptcha"].ready(() => {
         resolve();
       });
     });
@@ -211,7 +225,7 @@ export class ReCaptchaComponent extends LitElement {
    */
   private async loadCaptchaContainer() {
     const elm = document.createElement("div");
-    this.captchaId = await grecaptcha.render(elm, {
+    this.captchaId = await window["grecaptcha"].render(elm, {
       callback: this.responseHandler.bind(this),
       "expired-callback": this.expiredHandler.bind(this),
       sitekey: this.sitekey,
