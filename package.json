@@ -1,34 +1,39 @@
 {
   "name": "re-captcha",
+  "main": "./src/re-captcha.ts",
+  "bugs": {
+    "url": "https://github.com/sfeir-open-source/re-captcha/issues"
+  },
   "version": "0.1.0",
-  "description": "reCaptcha web component built using LitElement",
-  "main": "index.html",
   "scripts": {
-    "start": "parcel index.html",
     "build": "parcel build index.html",
-    "lint": "eslint src/**",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "format:eslint": "eslint --ext .ts,.js,.html . --fix",
+    "format:prettier": "prettier \"**/*.ts\" --write",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint --ext .ts,.js,.html .",
+    "lint:prettier": "prettier \"**/*.ts\" --list-different",
+    "start": "parcel index.html",
     "test": "cypress run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sfeir-open-source/re-captcha.git"
-  },
-  "keywords": [
-    "web-component",
-    "litelement",
-    "web",
-    "browser"
-  ],
   "authors": [
     "Cyril Balit <cbalit@gmail.com>",
     "Tobi Seitz <tobi@tobitobi.de>",
     "Phetsinorath William <phetsinorath.william@hotmail.com>"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sfeir-open-source/re-captcha/issues"
-  },
+  "keywords": [
+    "web-component",
+    "litelement",
+    "web",
+    "browser"
+  ],
   "homepage": "https://github.com/sfeir-open-source/re-captcha#readme",
+  "repository": {
+    "url": "git+https://github.com/sfeir-open-source/re-captcha.git",
+    "type": "git"
+  },
+  "description": "reCaptcha web component built using LitElement",
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "lit-element": "^2.1.0"
@@ -37,19 +42,27 @@
     "last 1 chrome versions"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/preset-typescript": "^7.3.3",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
     "@types/cypress": "^1.1.3",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "cypress": "^3.3.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-html": "^5.0.5",
     "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1",
     "parcel-bundler": "^1.12.3",
     "prettier": "1.17.0",
     "typescript": "^3.4.5"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
