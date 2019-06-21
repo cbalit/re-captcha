@@ -5,7 +5,8 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "rbbit.typescript-hero",
     "esbenp.prettier-vscode",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint"
   ],
   "appPort": [1234],
   "postCreateCommand": "yarn install"
