@@ -2,6 +2,8 @@
 
 # Meta configurations
 !/.gitignore
+!/.prettierignore
+!/.eslintignore
 !/.editorconfig
 
 # Development environment

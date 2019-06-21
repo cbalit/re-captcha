@@ -1,0 +1,16 @@
+*
+
+# Node and TypeScript configurations
+!/.eslintrc.js
+!/.babelrc.js
+
+# Application sources
+!/index.html
+!/src
+!/src/**/*.ts
+
+# Tests
+!/test/
+!/test/**/
+!/test/**/*.ts
+!/test/**/*.js
