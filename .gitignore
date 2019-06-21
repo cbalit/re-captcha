@@ -33,7 +33,7 @@
 !/src/**/*.ts
 
 # Tests
-!/e2e/
-!/e2e/**/
-!/e2e/**/*.ts
-!/e2e/**/*.js
+!/test/
+!/test/**/
+!/test/**/*.ts
+!/test/**/*.js
