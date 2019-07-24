@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <title>re-captcha</title>
+
+    <script type="module" src="/build/re-captcha.esm.js"></script>
+    <script nomodule src="/build/re-captcha.js"></script>
+  </head>
+  <body>
+    <re-captcha
+      id="default"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+    <re-captcha
+      id="custom"
+      lang="es"
+      theme="dark"
+      type="audio"
+      timeout="1000"
+      tabindex="5"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+    <re-captcha
+      id="invalid"
+      theme="foo"
+      type="bar"
+      timeout="notanumber"
+      sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
+    ></re-captcha>
+  </body>
+</html>

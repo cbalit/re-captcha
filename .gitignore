@@ -1,12 +1,18 @@
 *
 
 # Meta configurations
-!/babel.config.js
-!/jest.config.js
 !/.gitignore
 !/.prettierignore
 !/.eslintignore
 !/.editorconfig
+
+# Node and TypeScript configurations
+!/package.json
+!/yarn.lock
+!/.eslintrc.js
+!/babel.config.js
+!/jest.config.js
+!/tsconfig.json
 
 # Development environment
 !/.devcontainer/
@@ -22,17 +28,12 @@
 !/CHANGELOG.md
 !/LICENSE
 
-# Node and TypeScript configurations
-!/package.json
-!/yarn.lock
-!/tsconfig.json
-!/tsconfig.test.json
-!/.eslintrc.js
-
 # Application sources
-!/index.html
 !/src
+!/src/**/
 !/src/**/*.ts
+!/src/**/*.tsx
+!/src/**/*.html
 
 # Tests
 !/tests/

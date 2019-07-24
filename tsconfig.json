@@ -1,24 +1,26 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
     "declaration": false,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "lib": [
-      "es2018",
-      "dom"
+      "dom",
+      "es2017"
     ],
-    "skipLibCheck": true,
-    "module": "esnext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "target": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "jest"
-    ]
-  }
+    "module": "esnext",
+    "target": "es2017",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "jsxFactory": "h"
+  },
+  "include": [
+    "src",
+    "types/jsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
