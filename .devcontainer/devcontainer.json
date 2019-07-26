@@ -8,6 +8,6 @@
     "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint"
   ],
-  "appPort": [1234],
+  "appPort": [3336],
   "postCreateCommand": "yarn install"
 }
