@@ -18,12 +18,28 @@
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "lint": "eslint --ext .tsx,.ts ."
   },
   "devDependencies": {
     "@stencil/core": "^1.0.7",
     "@types/puppeteer": "1.12.4",
-    "puppeteer": "1.17.0"
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.1",
+    "lint-staged": "^9.2.0",
+    "puppeteer": "1.17.0",
+    "typescript": "^3.5.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
 }

@@ -16,57 +16,63 @@ export class ReCaptcha {
   /**
    * The type of re-captcha to serve (`image` or `audio`)
    */
-  @Prop() type = "image";
+  @Prop()
+  public type = "image";
 
   /**
    * Your sitekey
    *
    * (Provided on registration -- see https://developers.google.com/re-captcha/intro)
    */
-  @Prop() sitekey = "6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4";
+  @Prop()
+  public sitekey = "";
 
   /**
    * The color theme of the widget (`dark` or `light`)
    */
-  @Prop() theme = "light";
+  @Prop()
+  public theme = "light";
 
   /**
    * The total time (in milliseconds) to wait for API loading
    */
-  @Prop() timeout = 3000;
+  @Prop()
+  public timeout = 3000;
 
   /**
    * re-captcha API URL
    */
-  @Prop() href = "https://www.google.com/recaptcha/api.js";
+  @Prop()
+  public href = "https://www.google.com/recaptcha/api.js";
 
   /**
    * The tabidx of the widget and challenge
    *
    * If other elements in your page use tabidx, this should be set to make user navigation easier.
    */
-  @Prop() tabidx = 0;
+  @Prop()
+  public tabidx = 0;
 
   /**
    * The language attribute
    */
-  @Prop() language = "";
+  @Prop()
+  public language = "";
 
   /**
    * Captcha response
    */
-  @Event() onResponse: EventEmitter;
+  @Event()
+  public onResponse: EventEmitter;
 
   /**
    * Captcha expiration
    */
-  @Event() onExpire: EventEmitter;
+  @Event()
+  public onExpire: EventEmitter;
 
-  /**
-   * Validate type name
-   */
   @Watch("type")
-  async validateType(newValue: string, oldValue: string) {
+  public async validateType(newValue: string, oldValue: string) {
     try {
       if (newValue !== "audio" && newValue !== "image") {
         throw new TypeError(`property "type" must be either audio or image`);
@@ -77,11 +83,8 @@ export class ReCaptcha {
     }
   }
 
-  /**
-   * Validate type name
-   */
   @Watch("sitekey")
-  async validateSiteKey(newValue: string, oldValue: string) {
+  public async validateSiteKey(newValue: string, oldValue: string) {
     try {
       if (newValue === "") {
         throw new Error(
@@ -96,11 +99,8 @@ export class ReCaptcha {
     }
   }
 
-  /**
-   * Validate type name
-   */
   @Watch("theme")
-  async validateTheme(newValue: string, oldValue: string) {
+  public async validateTheme(newValue: string, oldValue: string) {
     try {
       if (newValue !== "dark" && newValue !== "light") {
         throw new TypeError(`property "theme" must be either dark or light`);
@@ -111,27 +111,22 @@ export class ReCaptcha {
     }
   }
 
-  /**
-   * Validate type name
-   */
   @Watch("timeout")
-  async validateTimeout(newValue: number, oldValue: number) {
+  public async validateTimeout(newValue: number, oldValue: number) {
     try {
       const timeout = Number(newValue);
       if (!Number.isFinite(timeout)) {
         throw new TypeError(`property "timeout" must be of type number`);
       }
+      this.timeout = timeout;
     } catch (e) {
       this.timeout = oldValue;
       throw e;
     }
   }
 
-  /**
-   * Validate type name
-   */
   @Watch("href")
-  async validateHref(newValue: string, oldValue: string) {
+  public async validateHref(newValue: string, oldValue: string) {
     try {
       try {
         new URL(newValue);
@@ -144,31 +139,43 @@ export class ReCaptcha {
     }
   }
 
+  @Watch("tabidx")
+  public async validateTabidx(newValue: number, oldValue: number) {
+    try {
+      const tabidx = Number(newValue);
+      if (!Number.isFinite(tabidx)) {
+        throw new TypeError(`property "tabidx" must be of type number`);
+      }
+      this.tabidx = tabidx;
+    } catch (e) {
+      this.tabidx = oldValue;
+      throw e;
+    }
+  }
+
   @Element()
   private el: HTMLElement;
 
-  async componentWillLoad() {
+  public async componentWillLoad() {
     this.validateType(this.type, "image");
-    this.validateSiteKey(
-      this.sitekey,
-      "6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
-    );
+    this.validateSiteKey(this.sitekey, "");
     this.validateTheme(this.theme, "light");
     this.validateTimeout(this.timeout, 3000);
     this.validateHref(this.href, "https://www.google.com/re-captcha/api.js");
+    this.validateTabidx(this.tabidx, 0);
   }
 
-  async componentDidLoad() {
+  public async componentDidLoad() {
     await this.loadReCaptchaScript();
     await this.loadReCaptchaContainer();
   }
 
-  async componentWillUpdate() {
+  public async componentWillUpdate() {
     await this.loadReCaptchaScript();
     await this.loadReCaptchaContainer();
   }
 
-  render() {
+  public render() {
     return (
       <Host>
         <script />
@@ -253,13 +260,14 @@ export class ReCaptcha {
   private async rescheduleReCaptchaScriptLoad(script: HTMLScriptElement) {
     await new Promise(resolve => {
       const listener = () => {
-        resolve(this.waitReCaptchaScript(script));
+        resolve();
       };
 
       window.addEventListener("online", listener, {
         once: true
       });
     });
+    this.waitReCaptchaScript(script);
   }
 
   /**
@@ -282,7 +290,7 @@ export class ReCaptcha {
    * The `responseHandler` method will store the response and fire the captcha-response. At least
    * it will dispatch a captcha-response event with the response
    */
-  private responseHandler(response: any) {
+  private responseHandler(response: unknown) {
     this.onResponse.emit(response);
   }
 

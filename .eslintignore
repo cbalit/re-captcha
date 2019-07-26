@@ -1,0 +1,14 @@
+*
+
+# Application sources
+!/src
+!/src/components/
+!/src/components/**/
+!/src/components/**/*.ts
+!/src/components/**/*.tsx
+!/src/components/**/*.html
+
+# Tests
+!/tests/
+!/tests/**/
+!/tests/**/*.ts
