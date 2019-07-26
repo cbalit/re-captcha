@@ -12,6 +12,13 @@
     <script nomodule src="/build/re-captcha.js"></script>
   </head>
   <body>
-    <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4" />
+    <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"></re-captcha>
+    <script>
+      const reCaptchaElm = document.querySelector("re-captcha");
+
+      reCaptchaElm.addEventListener("onResponse", event => {
+        console.info(event);
+      });
+    </script>
   </body>
 </html>
