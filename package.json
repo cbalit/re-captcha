@@ -9,7 +9,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/re-captcha/re-captcha.js",
+  "unpkg": "dist/re-captcha/recaptcha.js",
   "files": [
     "dist/",
     "loader/"
