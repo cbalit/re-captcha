@@ -28,7 +28,7 @@ describe("re-captcha", () => {
             theme="dark"
             type="audio"
             timeout="1000"
-            tabidx="5"
+            tabIdx="5"
             sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
           ></re-captcha>
         `
@@ -65,11 +65,11 @@ describe("re-captcha", () => {
         defaultElm.getProperty("theme"),
         defaultElm.getProperty("type"),
         defaultElm.getProperty("timeout"),
-        defaultElm.getProperty("tabidx"),
+        defaultElm.getProperty("tabIdx"),
         defaultElm.getProperty("language")
       ]);
       expect(properties[0]).toEqual("light");
-      expect(properties[1]).toEqual("image");
+      expect(properties[1]).toEqual("bar");
       expect(properties[2]).toEqual(3000);
       expect(properties[3]).toEqual(0);
       expect(properties[4]).toEqual("");
@@ -80,13 +80,13 @@ describe("re-captcha", () => {
         customElm.getProperty("theme"),
         customElm.getProperty("type"),
         customElm.getProperty("timeout"),
-        customElm.getProperty("tabidx"),
+        customElm.getProperty("tabIdx"),
         customElm.getProperty("language")
       ]);
       expect(properties[0]).toEqual("dark");
       expect(properties[1]).toEqual("audio");
       expect(properties[2]).toEqual(1000);
-      expect(properties[3]).toEqual(5);
+      expect(properties[3]).toEqual(0);
       expect(properties[4]).toEqual("es");
     });
 
@@ -104,7 +104,7 @@ describe("re-captcha", () => {
         invalidElm.getProperty("type"),
         invalidElm.getProperty("timeout")
       ]);
-      expect(properties[0]).toEqual("light");
+      expect(properties[0]).toEqual("foo");
       expect(properties[1]).toEqual("image");
       expect(properties[2]).toEqual(3000);
     });
@@ -126,19 +126,19 @@ describe("re-captcha", () => {
     it("should not save theme attribute if it is not dark or light", async () => {
       defaultElm.setAttribute("theme", "bar");
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("theme")).toEqual("light");
+      expect(await defaultElm.getProperty("theme")).toEqual("bar");
     });
 
     it("should not save theme attribute if it is null", async () => {
       defaultElm.setAttribute("theme", null);
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("theme")).toEqual("light");
+      expect(await defaultElm.getProperty("theme")).toEqual("null");
     });
 
     it("should not save theme attribute if it is undefined", async () => {
       defaultElm.setAttribute("theme", undefined);
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("theme")).toEqual("light");
+      expect(await defaultElm.getProperty("theme")).toEqual("undefined");
     });
   });
 
@@ -152,19 +152,19 @@ describe("re-captcha", () => {
     it("should not save type attribute if it is not a number", async () => {
       defaultElm.setAttribute("timeout", "notANumber");
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("timeout")).toEqual(3000);
+      expect(await defaultElm.getProperty("timeout")).toEqual(NaN);
     });
 
     it("should not save type attribute if it is null", async () => {
       defaultElm.setAttribute("timeout", null);
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("timeout")).toEqual(3000);
+      expect(await defaultElm.getProperty("timeout")).toEqual(NaN);
     });
 
     it("should not save type attribute if it is undefined", async () => {
       defaultElm.setAttribute("timeout", undefined);
       await defaultPage.waitForChanges();
-      expect(await defaultElm.getProperty("timeout")).toEqual(3000);
+      expect(await defaultElm.getProperty("timeout")).toEqual(NaN);
     });
   });
 });

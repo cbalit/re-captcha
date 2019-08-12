@@ -23,7 +23,7 @@ export namespace Components {
     */
     'src': string;
     /**
-    * The tabidx of the widget and challenge  If other elements in your page use tabidx, this should be set to make user navigation easier.
+    * The tabIdx of the widget and challenge  If other elements in your page use tabIdx, this should be set to make user navigation easier.
     */
     'tabIdx': number;
     /**
@@ -77,7 +77,7 @@ declare namespace LocalJSX {
     */
     'src'?: string;
     /**
-    * The tabidx of the widget and challenge  If other elements in your page use tabidx, this should be set to make user navigation easier.
+    * The tabIdx of the widget and challenge  If other elements in your page use tabIdx, this should be set to make user navigation easier.
     */
     'tabIdx'?: number;
     /**

@@ -3,7 +3,6 @@ import {
   Prop,
   Element,
   Event,
-  Watch,
   Host,
   h,
   EventEmitter
@@ -46,9 +45,9 @@ export class ReCaptcha {
   public src = "https://www.google.com/recaptcha/api.js";
 
   /**
-   * The tabidx of the widget and challenge
+   * The tabIdx of the widget and challenge
    *
-   * If other elements in your page use tabidx, this should be set to make user navigation easier.
+   * If other elements in your page use tabIdx, this should be set to make user navigation easier.
    */
   @Prop()
   public tabIdx = 0;
@@ -71,99 +70,8 @@ export class ReCaptcha {
   @Event()
   public onExpire: EventEmitter;
 
-  @Watch("type")
-  public async validateType(newValue: string, oldValue: string) {
-    try {
-      if (newValue !== "audio" && newValue !== "image") {
-        throw new TypeError(`property "type" must be either audio or image`);
-      }
-    } catch (e) {
-      this.type = oldValue;
-      throw e;
-    }
-  }
-
-  @Watch("sitekey")
-  public async validateSiteKey(newValue: string, oldValue: string) {
-    try {
-      if (newValue === "") {
-        throw new Error(
-          "sitekey attribute is mandatory for re-captcha element"
-        );
-      } else if (newValue.length !== 40) {
-        throw new TypeError(`property "sitekey" must be valid`);
-      }
-    } catch (e) {
-      this.sitekey = oldValue;
-      throw e;
-    }
-  }
-
-  @Watch("theme")
-  public async validateTheme(newValue: string, oldValue: string) {
-    try {
-      if (newValue !== "dark" && newValue !== "light") {
-        throw new TypeError(`property "theme" must be either dark or light`);
-      }
-    } catch (e) {
-      this.theme = oldValue;
-      throw e;
-    }
-  }
-
-  @Watch("timeout")
-  public async validateTimeout(newValue: number, oldValue: number) {
-    try {
-      const timeout = Number(newValue);
-      if (!Number.isFinite(timeout)) {
-        throw new TypeError(`property "timeout" must be of type number`);
-      }
-      this.timeout = timeout;
-    } catch (e) {
-      this.timeout = oldValue;
-      throw e;
-    }
-  }
-
-  @Watch("href")
-  public async validateHref(newValue: string, oldValue: string) {
-    try {
-      try {
-        new URL(newValue);
-      } catch (_e) {
-        throw new TypeError(`property "href" must be valid URL`);
-      }
-    } catch (e) {
-      this.src = oldValue;
-      throw e;
-    }
-  }
-
-  @Watch("tabidx")
-  public async validateTabidx(newValue: number, oldValue: number) {
-    try {
-      const tabidx = Number(newValue);
-      if (!Number.isFinite(tabidx)) {
-        throw new TypeError(`property "tabidx" must be of type number`);
-      }
-      this.tabIdx = tabidx;
-    } catch (e) {
-      this.tabIdx = oldValue;
-      throw e;
-    }
-  }
-
   @Element()
   private el: HTMLElement;
-
-  public async componentWillLoad() {
-    this.validateType(this.type, "image");
-    this.validateSiteKey(this.sitekey, "");
-    this.validateTheme(this.theme, "light");
-    this.validateTimeout(this.timeout, 3000);
-    this.validateHref(this.src, "https://www.google.com/re-captcha/api.js");
-    this.validateTabidx(this.tabIdx, 0);
-  }
 
   public async componentDidLoad() {
     await this.loadReCaptchaScript();
