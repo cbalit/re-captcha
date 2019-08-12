@@ -11,10 +11,6 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface ReCaptcha {
     /**
-    * re-captcha API URL
-    */
-    'href': string;
-    /**
     * The language attribute
     */
     'language': string;
@@ -23,9 +19,13 @@ export namespace Components {
     */
     'sitekey': string;
     /**
+    * re-captcha API URL
+    */
+    'src': string;
+    /**
     * The tabidx of the widget and challenge  If other elements in your page use tabidx, this should be set to make user navigation easier.
     */
-    'tabidx': number;
+    'tabIdx': number;
     /**
     * The color theme of the widget (`dark` or `light`)
     */
@@ -57,10 +57,6 @@ declare global {
 declare namespace LocalJSX {
   interface ReCaptcha extends JSXBase.HTMLAttributes<HTMLReCaptchaElement> {
     /**
-    * re-captcha API URL
-    */
-    'href'?: string;
-    /**
     * The language attribute
     */
     'language'?: string;
@@ -77,9 +73,13 @@ declare namespace LocalJSX {
     */
     'sitekey'?: string;
     /**
+    * re-captcha API URL
+    */
+    'src'?: string;
+    /**
     * The tabidx of the widget and challenge  If other elements in your page use tabidx, this should be set to make user navigation easier.
     */
-    'tabidx'?: number;
+    'tabIdx'?: number;
     /**
     * The color theme of the widget (`dark` or `light`)
     */

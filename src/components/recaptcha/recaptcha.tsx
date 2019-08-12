@@ -43,7 +43,7 @@ export class ReCaptcha {
    * re-captcha API URL
    */
   @Prop()
-  public href = "https://www.google.com/recaptcha/api.js";
+  public src = "https://www.google.com/recaptcha/api.js";
 
   /**
    * The tabidx of the widget and challenge
@@ -51,7 +51,7 @@ export class ReCaptcha {
    * If other elements in your page use tabidx, this should be set to make user navigation easier.
    */
   @Prop()
-  public tabidx = 0;
+  public tabIdx = 0;
 
   /**
    * The language attribute
@@ -134,7 +134,7 @@ export class ReCaptcha {
         throw new TypeError(`property "href" must be valid URL`);
       }
     } catch (e) {
-      this.href = oldValue;
+      this.src = oldValue;
       throw e;
     }
   }
@@ -146,9 +146,9 @@ export class ReCaptcha {
       if (!Number.isFinite(tabidx)) {
         throw new TypeError(`property "tabidx" must be of type number`);
       }
-      this.tabidx = tabidx;
+      this.tabIdx = tabidx;
     } catch (e) {
-      this.tabidx = oldValue;
+      this.tabIdx = oldValue;
       throw e;
     }
   }
@@ -161,8 +161,8 @@ export class ReCaptcha {
     this.validateSiteKey(this.sitekey, "");
     this.validateTheme(this.theme, "light");
     this.validateTimeout(this.timeout, 3000);
-    this.validateHref(this.href, "https://www.google.com/re-captcha/api.js");
-    this.validateTabidx(this.tabidx, 0);
+    this.validateHref(this.src, "https://www.google.com/re-captcha/api.js");
+    this.validateTabidx(this.tabIdx, 0);
   }
 
   public async componentDidLoad() {
@@ -202,9 +202,9 @@ export class ReCaptcha {
 
   private buildReCaptchaURL() {
     if (!this.language) {
-      return this.href;
+      return this.src;
     } else {
-      return `${this.href}?hl=${this.language}`;
+      return `${this.src}?hl=${this.language}`;
     }
   }
 
@@ -279,7 +279,7 @@ export class ReCaptcha {
       callback: this.responseHandler.bind(this),
       "expired-callback": this.expiredHandler.bind(this),
       sitekey: this.sitekey,
-      tabindex: this.tabidx,
+      tabindex: this.tabIdx,
       theme: this.theme,
       type: this.type
     });
