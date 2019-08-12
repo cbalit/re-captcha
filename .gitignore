@@ -33,6 +33,7 @@
 # Application sources
 !/src
 !/src/**/
+!/src/**/README.md
 !/src/**/*.ts
 !/src/**/*.tsx
 !/src/**/*.html

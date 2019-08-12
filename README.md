@@ -2,7 +2,7 @@
 
 Web Component element for Google reCAPTCHA.
 
-Need help? Check out our docs [here](src/components/recaptcha/readme.md)
+Need help? Check out our docs [here](src/components/recaptcha/README.md)
 
 ## Getting Started
 
