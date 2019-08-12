@@ -69,7 +69,7 @@ describe("re-captcha", () => {
         defaultElm.getProperty("language")
       ]);
       expect(properties[0]).toEqual("light");
-      expect(properties[1]).toEqual("bar");
+      expect(properties[1]).toEqual("image");
       expect(properties[2]).toEqual(3000);
       expect(properties[3]).toEqual(0);
       expect(properties[4]).toEqual("");
@@ -105,8 +105,8 @@ describe("re-captcha", () => {
         invalidElm.getProperty("timeout")
       ]);
       expect(properties[0]).toEqual("foo");
-      expect(properties[1]).toEqual("image");
-      expect(properties[2]).toEqual(3000);
+      expect(properties[1]).toEqual("bar");
+      expect(properties[2]).toEqual(NaN);
     });
   });
 
