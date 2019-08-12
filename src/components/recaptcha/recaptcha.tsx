@@ -13,10 +13,10 @@ import {
 })
 export class ReCaptcha {
   /**
-   * The type of re-captcha to serve (`image` or `audio`)
+   * The type of re-captcha to serve
    */
   @Prop()
-  public type = "image";
+  public type: "image" | "audio" = "image";
 
   /**
    * Your sitekey
@@ -27,10 +27,10 @@ export class ReCaptcha {
   public sitekey = "";
 
   /**
-   * The color theme of the widget (`dark` or `light`)
+   * The color theme of the widget
    */
   @Prop()
-  public theme = "light";
+  public theme: "dark" | "light" = "light";
 
   /**
    * The total time (in milliseconds) to wait for API loading

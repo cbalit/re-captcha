@@ -27,17 +27,17 @@ export namespace Components {
     */
     'tabIdx': number;
     /**
-    * The color theme of the widget (`dark` or `light`)
+    * The color theme of the widget
     */
-    'theme': string;
+    'theme': "dark" | "light";
     /**
     * The total time (in milliseconds) to wait for API loading
     */
     'timeout': number;
     /**
-    * The type of re-captcha to serve (`image` or `audio`)
+    * The type of re-captcha to serve
     */
-    'type': string;
+    'type': "image" | "audio";
   }
 }
 
@@ -81,17 +81,17 @@ declare namespace LocalJSX {
     */
     'tabIdx'?: number;
     /**
-    * The color theme of the widget (`dark` or `light`)
+    * The color theme of the widget
     */
-    'theme'?: string;
+    'theme'?: "dark" | "light";
     /**
     * The total time (in milliseconds) to wait for API loading
     */
     'timeout'?: number;
     /**
-    * The type of re-captcha to serve (`image` or `audio`)
+    * The type of re-captcha to serve
     */
-    'type'?: string;
+    'type'?: "image" | "audio";
   }
 
   interface IntrinsicElements {
