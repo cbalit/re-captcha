@@ -17,7 +17,7 @@
       const reCaptchaElm = document.querySelector("re-captcha");
 
       reCaptchaElm.addEventListener("onResponse", event => {
-        console.info(event);
+        alert(`reCaptcha token: ${event.detail}`);
       });
     </script>
   </body>
