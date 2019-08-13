@@ -13,7 +13,7 @@ export namespace Components {
     /**
     * The language attribute
     */
-    'language': string;
+    'language'?: string;
     /**
     * Your sitekey  (Provided on registration -- see https://developers.google.com/re-captcha/intro)
     */
@@ -21,23 +21,23 @@ export namespace Components {
     /**
     * re-captcha API URL
     */
-    'src': string;
+    'src'?: string;
     /**
     * The tabIdx of the widget and challenge  If other elements in your page use tabIdx, this should be set to make user navigation easier.
     */
-    'tabIdx': number;
+    'tabIdx'?: number;
     /**
     * The color theme of the widget
     */
-    'theme': "dark" | "light";
+    'theme'?: "dark" | "light";
     /**
     * The total time (in milliseconds) to wait for API loading
     */
-    'timeout': number;
+    'timeout'?: number;
     /**
     * The type of re-captcha to serve
     */
-    'type': "image" | "audio";
+    'type'?: "image" | "audio";
   }
 }
 
@@ -71,7 +71,7 @@ declare namespace LocalJSX {
     /**
     * Your sitekey  (Provided on registration -- see https://developers.google.com/re-captcha/intro)
     */
-    'sitekey'?: string;
+    'sitekey': string;
     /**
     * re-captcha API URL
     */

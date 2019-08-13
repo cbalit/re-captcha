@@ -72,7 +72,7 @@ describe("re-captcha", () => {
       expect(properties[1]).toEqual("image");
       expect(properties[2]).toEqual(3000);
       expect(properties[3]).toEqual(0);
-      expect(properties[4]).toEqual("");
+      expect(properties[4]).toEqual("en");
     });
 
     it("set properties", async () => {
@@ -88,14 +88,6 @@ describe("re-captcha", () => {
       expect(properties[2]).toEqual(1000);
       expect(properties[3]).toEqual(0);
       expect(properties[4]).toEqual("es");
-    });
-
-    it("should set default empty string if the sitekey is not provided", async () => {
-      const page = await newE2EPage({
-        html: "<re-captcha></re-captcha>"
-      });
-      const component = await page.find("re-captcha");
-      expect(await component.getProperty("sitekey")).toEqual("");
     });
 
     it("set only allow properties", async () => {

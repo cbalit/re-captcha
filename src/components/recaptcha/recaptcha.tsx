@@ -13,36 +13,36 @@ import {
 })
 export class ReCaptcha {
   /**
-   * The type of re-captcha to serve
-   */
-  @Prop()
-  public type: "image" | "audio" = "image";
-
-  /**
    * Your sitekey
    *
    * (Provided on registration -- see https://developers.google.com/re-captcha/intro)
    */
   @Prop()
-  public sitekey = "";
+  public sitekey!: string;
+
+  /**
+   * The type of re-captcha to serve
+   */
+  @Prop()
+  public type?: "image" | "audio" = "image";
 
   /**
    * The color theme of the widget
    */
   @Prop()
-  public theme: "dark" | "light" = "light";
+  public theme?: "dark" | "light" = "light";
 
   /**
    * The total time (in milliseconds) to wait for API loading
    */
   @Prop()
-  public timeout = 3000;
+  public timeout? = 3000;
 
   /**
    * re-captcha API URL
    */
   @Prop()
-  public src = "https://www.google.com/recaptcha/api.js";
+  public src? = "https://www.google.com/recaptcha/api.js";
 
   /**
    * The tabIdx of the widget and challenge
@@ -50,13 +50,13 @@ export class ReCaptcha {
    * If other elements in your page use tabIdx, this should be set to make user navigation easier.
    */
   @Prop()
-  public tabIdx = 0;
+  public tabIdx? = 0;
 
   /**
    * The language attribute
    */
   @Prop()
-  public language = "";
+  public language? = "en";
 
   /**
    * Captcha response
