@@ -96,7 +96,7 @@ export class ReCaptcha {
     script.setAttribute("async", "");
     script.setAttribute("type", "text/javascript");
     script.setAttribute("src", url);
-    this.el.replaceChild(script, this.el.children[0]);
+    this.el.replaceChild(script, this.el.querySelector("script"));
     await this.waitReCaptchaScript(script);
   }
 
@@ -174,8 +174,8 @@ export class ReCaptcha {
    * Inject Captcha into the component DOM
    */
   private async loadReCaptchaContainer() {
-    const elm = document.createElement("div");
-    await window["grecaptcha"].render(elm, {
+    const container = document.createElement("div");
+    await window["grecaptcha"].render(container, {
       callback: this.responseHandler.bind(this),
       "expired-callback": this.expiredHandler.bind(this),
       sitekey: this.sitekey,
@@ -183,7 +183,10 @@ export class ReCaptcha {
       theme: this.theme,
       type: this.type
     });
-    this.el.replaceChild(elm.children[0], this.el.children[1]);
+    this.el.replaceChild(
+      container.querySelector("div"),
+      this.el.querySelector("div")
+    );
   }
 
   /**
