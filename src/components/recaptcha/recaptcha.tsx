@@ -45,14 +45,6 @@ export class ReCaptcha {
   public src? = "https://www.google.com/recaptcha/api.js";
 
   /**
-   * The tabIdx of the widget and challenge
-   *
-   * If other elements in your page use tabIdx, this should be set to make user navigation easier.
-   */
-  @Prop()
-  public tabIdx? = 0;
-
-  /**
    * The language attribute
    */
   @Prop()
@@ -187,7 +179,7 @@ export class ReCaptcha {
       callback: this.responseHandler.bind(this),
       "expired-callback": this.expiredHandler.bind(this),
       sitekey: this.sitekey,
-      tabindex: this.tabIdx,
+      tabindex: this.el.tabIndex,
       theme: this.theme,
       type: this.type
     });

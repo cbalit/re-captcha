@@ -23,10 +23,6 @@ export namespace Components {
     */
     'src'?: string;
     /**
-    * The tabIdx of the widget and challenge  If other elements in your page use tabIdx, this should be set to make user navigation easier.
-    */
-    'tabIdx'?: number;
-    /**
     * The color theme of the widget
     */
     'theme'?: "dark" | "light";
@@ -76,10 +72,6 @@ declare namespace LocalJSX {
     * re-captcha API URL
     */
     'src'?: string;
-    /**
-    * The tabIdx of the widget and challenge  If other elements in your page use tabIdx, this should be set to make user navigation easier.
-    */
-    'tabIdx'?: number;
     /**
     * The color theme of the widget
     */
