@@ -1,34 +1,4 @@
-# ReCaptcha Web Component
+# ReCaptcha Web Component Moved to [sfeir-open-source/re-captcha](https://github.com/sfeir-open-source/re-captcha)
 
-Web Component element for Google reCAPTCHA.
-
-Need help? Check out our docs [here](src/components/recaptcha/README.md)
-
-## Getting Started
-
-To start building a new web component using Stencil, clone this repo to a new directory:
-
-```bash
-git clone https://github.com/ionic-team/stencil-component-starter.git re-captcha
-cd re-captcha
-git remote rm origin
-```
-
-and run:
-
-```bash
-npm install
-npm start
-```
-
-To build the component for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests for the components, run:
-
-```bash
-npm test
-```
+This repository is an archive of re-captcha before the move.
+New issues and pull requests, for all branches, should be opened at [sfeir-open-source/re-captcha](https://github.com/sfeir-open-source/re-captcha).
