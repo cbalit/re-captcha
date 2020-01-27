@@ -54,13 +54,13 @@ export class ReCaptcha {
    * Captcha response
    */
   @Event()
-  public onResponse: EventEmitter;
+  public response: EventEmitter;
 
   /**
    * Captcha expiration
    */
   @Event()
-  public onExpire: EventEmitter;
+  public expire: EventEmitter;
 
   @Element()
   private el: HTMLElement;
@@ -194,7 +194,7 @@ export class ReCaptcha {
    * it will dispatch a captcha-response event with the response
    */
   private responseHandler(response: unknown) {
-    this.onResponse.emit(response);
+    this.response.emit(response);
   }
 
   /**
@@ -203,6 +203,6 @@ export class ReCaptcha {
    *  @method expiredHandler
    */
   private expiredHandler() {
-    this.onExpire.emit();
+    this.expire.emit();
   }
 }

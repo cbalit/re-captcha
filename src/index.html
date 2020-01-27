@@ -12,15 +12,15 @@
     <script nomodule src="/build/re-captcha.js"></script>
   </head>
   <body>
-    <main style="display:flex;justify-content:center;align-items:center;height: 100vh;">
-      <re-captcha
-        sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4"
-      ></re-captcha>
+    <main
+      style="display:flex;justify-content:center;align-items:center;height: 100vh;"
+    >
+      <re-captcha sitekey="6LdRcP4SAAAAAJ4Dq1gXcD9AyhzuG77iz7E2Dmu4" />
     </main>
     <script>
       const reCaptchaElm = document.querySelector("re-captcha");
 
-      reCaptchaElm.addEventListener("onResponse", event => {
+      reCaptchaElm.addEventListener("response", event => {
         alert(`reCaptcha token: ${event.detail}`);
       });
     </script>
